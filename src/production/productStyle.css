@@ -1,0 +1,16 @@
+/*noinspection ALL*/
+.tab-pane {
+  -fx-background-color: lightblue;
+  -fx-border-color: darkgray;
+}
+
+/*noinspection ALL*/
+.tab-pane .headers-region {
+  -fx-padding: 5px;
+  -fx-background-color: "gray";
+}
+
+.parent-grid-pane {
+  -fx-background-color: "black";
+}
+
