@@ -1,5 +1,4 @@
 ### Production Project
-# Breanna Rhodes
 This is a GUI project, that also has database.
 The database is accessed and can be manipulated to either display or to enter information into the database.
 Information is entered into the database using a gui application.
