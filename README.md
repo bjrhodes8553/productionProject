@@ -6,12 +6,13 @@ Information is entered into the database using a gui application.
 The buttons, text fields, list views, etc have all been given functions to manipulate or display the database.
   
 
-## The first sprint:
-1. Week 1: Create a JavaFX project, and share it to a private repository on github with a README.
-2. Week 2: Add tan pane to display functions, and style using CSS.
-3. Week 3: Assembly application interface and establish functions for buttons, text fields, etc.
-4. Week 4: Create/Connect the database.
-5. Week 5: All manipulations of the database are entered into the controller class, button adds to database.
+## The First Sprint:
+1. **Week 1:** Create a JavaFX project, and share it to a private repository on github with a README.
+2. **Week 2:** Add tan pane to display functions, and style using CSS.
+3. **Week 3:** Assembly application interface and establish functions for buttons, text fields, etc.
+4. **Week 4:** Create/Connect the database.
+5. **Week 5:** All manipulations of the database are entered into the controller class, button adds to database.
+-[x] First Sprint
 
 
 
