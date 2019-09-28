@@ -4,26 +4,22 @@ This is a GUI project, that also has database.
 The database is accessed and can be manipulated to either display or to enter information into the database.
 Information is entered into the database using a gui application.
 The buttons, text fields, list views, etc have all been given functions to manipulate or display the database.
+  
+
+## The first sprint:
+Week 1: Create a JavaFX project, and share it to a private repository on github with a README.
+Week 2: Add tan pane to display functions, and style using CSS.
+Week 3: Assembly application interface and establish functions for buttons, text fields, etc.
+Week 4: Create/Connect the database.
+Week 5: All manipulations of the database are entered into the controller class, button adds to database.
 
 
-# Prof. Vanselow's README Template
-
-A guide for creating a README for a student project. The template in this repository aims to identify and combine README best practices for real projects and for student projects. These are just suggestions, not requirements.     
-
-## Getting Started
-
-Start with the TemplateWithInfo then copy the TitleOnlyTemplate.   
 
 ## Software
+Intellij Ultimate IDE
+Scenebuilder
+H2 Driver
 
-You can create and edit markdown files in any text editor or right within GitHub.com. 
-Many IDEs have support for editing markdown files or plugins that can be added to them.
-https://stackedit.io/app# is a nice online option.
-QOwnNotes is a solid standalone option. https://www.qownnotes.org/
-
-## License
-
-This project is licensed under the MIT License.
 
 ## Acknowledgments
 
