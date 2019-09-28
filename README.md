@@ -7,18 +7,18 @@ The buttons, text fields, list views, etc have all been given functions to manip
   
 
 ## The first sprint:
-*Week 1: Create a JavaFX project, and share it to a private repository on github with a README.
-*Week 2: Add tan pane to display functions, and style using CSS.
-*Week 3: Assembly application interface and establish functions for buttons, text fields, etc.
-*Week 4: Create/Connect the database.
-*Week 5: All manipulations of the database are entered into the controller class, button adds to database.
+1. Week 1: Create a JavaFX project, and share it to a private repository on github with a README.
+2. Week 2: Add tan pane to display functions, and style using CSS.
+3. Week 3: Assembly application interface and establish functions for buttons, text fields, etc.
+4. Week 4: Create/Connect the database.
+5. Week 5: All manipulations of the database are entered into the controller class, button adds to database.
 
 
 
 ## Software
-*Intellij Ultimate IDE
-*Scenebuilder
-*H2 Driver
+- Intellij Ultimate IDE
+- Scenebuilder
+- H2 Driver
 
 
 ## Acknowledgments
