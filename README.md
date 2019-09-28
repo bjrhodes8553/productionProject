@@ -27,10 +27,10 @@ The buttons, text fields, list views, etc have all been given functions to manip
 * https://sites.google.com/site/profvanselow/course/cop-3003/oop-project
 * https://www.tutorialspoint.com/javafx/javafx_css.htm
 * https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
-*https://www.tutorialspoint.com/jdbc/jdbc-insert-records.htm
-*http://tutorials.jenkov.com/jdbc/preparedstatement.html
-*https://docs.oracle.com/javase/8/javafx/api/javafx/fxml/doc-files/introduction_to_fxml.html#controllers
-*http://google.github.io/styleguide/javaguide.html
-*https://www.oracle.com/technetwork/java/javase/documentation/index-137868.html
-*https://docs.oracle.com/javafx/2/get_started/jfxpub-get_started.htm
-*https://www.tutorialspoint.com/jdbc/jdbc-statements.htm
+* https://www.tutorialspoint.com/jdbc/jdbc-insert-records.htm
+* http://tutorials.jenkov.com/jdbc/preparedstatement.html
+* https://docs.oracle.com/javase/8/javafx/api/javafx/fxml/doc-files/introduction_to_fxml.html#controllers
+* http://google.github.io/styleguide/javaguide.html
+* https://www.oracle.com/technetwork/java/javase/documentation/index-137868.html
+* https://docs.oracle.com/javafx/2/get_started/jfxpub-get_started.htm
+* https://www.tutorialspoint.com/jdbc/jdbc-statements.htm
