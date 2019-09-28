@@ -64,7 +64,7 @@ public class Controller {
    */
   public static void main(String[] args) {
     System.out.println("Database Connected");
-  }//End of main.
+  } // End of main.
 
   /**
    * This is going to display the products currently in the database to a table in the application.
@@ -74,12 +74,12 @@ public class Controller {
   @FXML
   void display_products(CellEditEvent<?, ?> event) {
     /*
-      Try statement is made to call the driver, and to connect to the database. Using the
-      connection object, conn, and statement object stmt, a query is made. The query that is being
-      made is accessing the database to obtain the information inside of PRODUCT table. The query
-      is made by declaring a string, sql, and inputing the command inside of it. This is also known
-      as a prepared statement. ResultSet will send the statement and execute the query.
-     */
+     Try statement is made to call the driver, and to connect to the database. Using the
+     connection object, conn, and statement object stmt, a query is made. The query that is being
+     made is accessing the database to obtain the information inside of PRODUCT table. The query
+     is made by declaring a string, sql, and inputing the command inside of it. This is also known
+     as a prepared statement. ResultSet will send the statement and execute the query.
+    */
     try {
       Class.forName(jcbdDriver);
       conn = DriverManager.getConnection(dbUrl, user, pass);
@@ -87,40 +87,40 @@ public class Controller {
       String sql = "SELECT * FROM PRODUCT";
       ResultSet rs = stmt.executeQuery(sql);
       /*
-        A while loop is made to display the information line by line in an organized manner. After
-        the data is displayed, the query is closed using stmt.close(). The connection is also
-        closed using a similar function, conn.close().
-       */
+       A while loop is made to display the information line by line in an organized manner. After
+       the data is displayed, the query is closed using stmt.close(). The connection is also
+       closed using a similar function, conn.close().
+      */
       while (rs.next()) {
         System.out.println(rs.getString(1));
-      }//End of while.
+      } // End of while.
       stmt.close();
       conn.close();
       /*
-        Catch is used to catch an exception so the application is not terminated. The
-        ClassNotFoundExeception or SQLException are both considered, and if caught, will display
-        their stack trace.
-       */
+       Catch is used to catch an exception so the application is not terminated. The
+       ClassNotFoundExeception or SQLException are both considered, and if caught, will display
+       their stack trace.
+      */
     } catch (ClassNotFoundException | SQLException e) {
       e.printStackTrace();
     } // End of catch.
   } // End of display_products.
 
   /**
-   *This is the function that will add products to the database.
-   * 10 products have already been entered using this function.
-   * The button labeled "add product" adds a product to the database.
+   * This is the function that will add products to the database. 10 products have already been
+   * entered using this function. The button labeled "add product" adds a product to the database.
    * When the button is clicked by the mouse, the information is entered.
    */
   @FXML
   void add_product(MouseEvent event) {
     /*
-      Similar to the try statement before, the driver is called, and a connection is established.
-      Instead of accessing the database to display the information inside, this statement sends a query to add informatio
-      The statement sends a query to the database with information to input into the database.
-      The statment execution is updated, and the database then contains the inserted code.
-      The statement is then closed, as well as the connection.
-     */
+     Similar to the try statement before, the driver is called, and a connection is established.
+     Instead of accessing the database to display the information inside,
+     this statement sends a query to add information
+     The statement sends a query to the database with information to input into the database.
+     The statment execution is updated, and the database then contains the inserted code.
+     The statement is then closed, as well as the connection.
+    */
     try {
       Class.forName(jcbdDriver);
 
@@ -135,62 +135,63 @@ public class Controller {
       stmt.close();
       conn.close();
       /*
-        Also similar to the catch statement above, this will catch the exceptions, so the code can still run.
-       */
+       Also similar to the earlier catch, this will catch the exceptions, so the code can still run.
+      */
     } catch (ClassNotFoundException | SQLException e) {
       e.printStackTrace();
-    }//End catch.
+    } // End catch.
 
     System.out.println("Product Added");
-  }//End add_product.
+  } // End add_product.
 
   /**
-   * This function will take the button on the application labeled record production, and give it function.
-   * The button will take orders from the client of what they would like produced.
+   * This function will take the button on the application labeled record production, and give it
+   * function. The button will take orders from the client of what they would like produced.
    */
   @FXML
   void record_production(MouseEvent event) {
     System.out.println("Your order has been recorded");
-  }//End of record_production
+  } // End of record_production
 
   /**
-   *This function will take the user input entered into the text box.
-   * This will be accomplished by using the getProductName function.
-   * Then, this function will set a query to insert a product by name into the database.
+   * This function will take the user input entered into the text box. This will be accomplished by
+   * using the getProductName function. Then, this function will set a query to insert a product by
+   * name into the database.
    */
   public void input_products(CellEditEvent<?, ?> cellEditEvent) {
     System.out.println("Product name has been entered");
-  }//End of input_products.
+  } // End of input_products.
 
   /**
-   * This function is used to display the different production types into a choice box.
-   * The choice box will have options once it is called by context.
+   * This function is used to display the different production types into a choice box. The choice
+   * box will have options once it is called by context.
    */
   public void display_types(ContextMenuEvent contextMenuEvent) {
     System.out.println("Production types have been updated.");
-  }//End of display_names.
+  } // End of display_names.
   /**
-   *This function is used to scan the users input into the text box, and store it.
-   * Once it is stored, it will be called by the input_product function so that it can be used in a query.
+   * This function is used to scan the users input into the text box, and store it. Once it is
+   * stored, it will be called by the input_product function so that it can be used in a query.
    */
+
   public void getProductName(MouseEvent mouseEvent) {
     System.out.println("Product name has been scanned and stored.");
-  }//End of getProductName.
+  } // End of getProductName.
 
   /**
-   *This function will be used to scan the manufacturer text box, and store the user input.
-   * Once the input is stored, it will be used in a query to store the information into the database.
+   * This function will be used to scan the manufacturer text box, and store the user input. Once
+   * the input is stored, it will be used in a query to store the information into the database.
    */
   public void getManufacturer(MouseEvent mouseEvent) {
     System.out.println("Manufactuer has been scanned and stored.");
-  }//End of getManufacturer.
+  } // End of getManufacturer.
 
   /**
-   *This function will be used by the type choice box.
-   * Once a selection has been made using the mouse, that value will be stored into a variable.
-   * The variable will then be used in a query to store in the entered information into the database.
+   * This function will be used by the type choice box. Once a selection has been made using the
+   * mouse, that value will be stored into a variable. The variable will then be used in a query to
+   * store in the entered information into the database.
    */
   public void getType(MouseEvent mouseEvent) {
     System.out.println("Type has been selected and stored.");
-  }//End of getType.
-}//End of Controller class.
+  } // End of getType.
+} // End of Controller class.
