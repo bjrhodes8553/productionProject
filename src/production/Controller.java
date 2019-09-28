@@ -15,7 +15,7 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 
 /**
- * Controller class controlls all aspects of the application. It is used to give function to each
+ * Controller class controls all aspects of the application. It is used to give function to each
  * element of the application, such as buttons.
  */
 @SuppressWarnings("ALL")
