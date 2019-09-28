@@ -12,7 +12,7 @@ The buttons, text fields, list views, etc have all been given functions to manip
 3. **Week 3:** Assembly application interface and establish functions for buttons, text fields, etc.
 4. **Week 4:** Create/Connect the database.
 5. **Week 5:** All manipulations of the database are entered into the controller class, button adds to database.
--[x] First Sprint
+- [x] First Sprint
 
 
 
