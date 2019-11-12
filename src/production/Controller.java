@@ -19,6 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -48,9 +49,13 @@ public class Controller {
 
   @FXML private Button Btn_remove;
 
+  @FXML private Button btn_remove_log;
+
   @FXML private ChoiceBox<ItemType> choiceB_type;
 
   @FXML private ComboBox<Integer> combo_quantity;
+
+  @FXML private ImageView image_logo;
 
   @FXML private ListView listView_eProducts;
 
@@ -60,7 +65,7 @@ public class Controller {
 
   @FXML private TextField txtField_manufacturer;
 
-  @FXML private TextField TxtField_Product;
+  @FXML private TextField txtField_Product;
 
   @FXML private TableColumn<?, ?> viewName;
 
@@ -92,21 +97,26 @@ public class Controller {
 
     // Similar statement is made to populate the combobox.
     if (combo_quantity.getItems().isEmpty()) {
-      combo_quantity.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+      combo_quantity.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+          16, 17, 18, 19, 20);
     } else {
       System.out.println(" ");
     }
     // call methods that need to be called when the program starts
     getName();
-    //testMultimedia();
-    populateTableView();
+    //testMultimedia(); -- (commented out until needed.)
+    populate_tableview();
 }
-   public void populateTableView(){
+   public void populate_tableview(){
      // Initilize array list for products
-     ArrayList<Product> aListProducts = new ArrayList();
+     ArrayList<Product> productArrayList = new ArrayList<Product>();
+     ObservableList<Product>productOlist = FXCollections.observableArrayList();
+     viewName.setCellValueFactory(new PropertyValueFactory("Name"));
+     viewManu.setCellValueFactory(new PropertyValueFactory("Manufacturer"));
+     viewType.setCellValueFactory(new PropertyValueFactory("Type"));
       String sql = "SELECT * FROM PRODUCT";
-      aListProducts.clear();
-      viewProducts.getItems().clear();
+      productArrayList.clear();
+      productOlist.clear();
     try {
       Class.forName(jcbdDriver);
       conn = DriverManager.getConnection(dbUrl, user, pass);
@@ -136,9 +146,9 @@ public class Controller {
             type = ItemType.VISUAL_MOBILE;
         }
         Product dbProduct = new Widget(pName, pManu, type);
-        aListProducts.add(dbProduct);
-        ObservableList<Product> listProducts = FXCollections.observableArrayList(aListProducts);
-        viewProducts.setItems(listProducts);
+        productArrayList.add(dbProduct);
+        viewProducts.setItems(productOlist);
+        productOlist.add(dbProduct);
       }
       // Close the connection
       stmt.close();
@@ -190,14 +200,15 @@ public class Controller {
        the data is displayed, the query is closed using stmt.close(). The connection is also
        closed using a similar function, conn.close().
       */
-
       while (rs.next()) {
-        final String pName = rs.getString("NAME");
+        String pName = rs.getString("NAME");
         if (listView_eProducts.getItems().contains(pName)) {
           System.out.println("");
         } else {
           listView_eProducts.getItems().addAll(pName);
+          initialize();
         }
+       // if(listView_eProducts.getItems().removeIf(pName = null));
       }
       // Close the connection
       stmt.close();
@@ -239,11 +250,16 @@ public class Controller {
         String pManufacturer = rs.getString("MANUFACTURER");
         String pType = rs.getString("TYPE");
         int quantity = combo_quantity.getValue();
-        ProductionRecord addProduction = new ProductionRecord(1, quantity, pManufacturer.substring(0,3)+"0000", new Date());
-        DatabaseAccessor.add_production_record(addProduction);
-        ProductionRecord displayProduction = new ProductionRecord(pName, quantity, pManufacturer.substring(0,3)+"0000", new Date());
-        textArea_productLog.appendText(displayProduction.toStringWithName());
-      }
+        for (int i = 1; i < quantity+1; i++) {
+          ProductionRecord addProduction =
+              new ProductionRecord(1, i, pManufacturer.substring(0, 3) + "0000" + i, new Date());
+          DatabaseAccessor.add_production_record(addProduction);
+          ProductionRecord displayProduction =
+              new ProductionRecord(
+                  pName, i, pManufacturer.substring(0, 3) + "0000" + i, new Date());
+          textArea_productLog.appendText(displayProduction.toStringWithName());
+        }
+        }
       // Close the connection
       stmt.close();
       conn.close();
@@ -270,8 +286,33 @@ public class Controller {
    */
   @FXML
   void remove_product(MouseEvent event) {
-    DatabaseAccessor.removeProduct();
+    ObservableList<Product>list;
+    list = viewProducts.getSelectionModel().getSelectedItems();
+    System.out.println(list.get(0));
+    Product name = list.get(0);
+    String itemName = name.getName();
+   DatabaseAccessor.removeProduct(itemName);
+    initialize();
+    clear_textfields();
   }
+  @FXML
+  void remove_productionLog(MouseEvent event) {
+    textArea_productLog.clear();
+    DatabaseAccessor.remove_productionLog();
+  }
+
+  /**
+   * METHOD NAME: clear_textfields
+   * PURPOSE: The purpose of this method is to clear the text fields after information
+   * has been stored into the database or if the database is cleared.
+   */
+  void clear_textfields(){
+    txtField_manufacturer.clear();
+    txtField_Product.clear();
+    choiceB_type.hide();
+
+  }
+
 
   /**
    * METHOD NAME: add_product PURPOSE: This is the function that will add products to the database.
@@ -282,7 +323,7 @@ public class Controller {
   @FXML
   void add_product(MouseEvent event) {
     // When using a textfield, the method getText() is used to get the text entered by user.
-    final String add_product_name = TxtField_Product.getText();
+    final String add_product_name = txtField_Product.getText();
     final String add_manufacturer = txtField_manufacturer.getText();
     // When using a choice box, the method getValue() is used to get the users selection.
     final ItemType get_type = choiceB_type.getValue();
@@ -303,6 +344,7 @@ public class Controller {
             + add_manufacturer
             + "\nType: "
             + type_string);
+    clear_textfields();
   }
 }
 

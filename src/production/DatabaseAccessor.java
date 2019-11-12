@@ -109,7 +109,7 @@ public class DatabaseAccessor {
    * METHOD NAME: removeProduct
    * PURPOSE: This method will remove a selected item from the database.
    */
-  public static void removeProduct() {
+  public static void removeProduct(String name) {
     // Because the method is static, the driver and URl need to be declared inside of the method.
     final String jcbdDriver = "org.h2.Driver";
     final String dbUrl = "jdbc:h2:C:/Users/feesh/OneDrive/intelliJCOP/productionProject/res";
@@ -125,13 +125,31 @@ public class DatabaseAccessor {
       stmt = conn.createStatement();
       // Right now this method clears the entire database.
       //String sql = "DELETE FROM PRODUCT WHERE ID = '"+id+"'";
-      String sql = "DELETE FROM PRODUCT";
+      String sql = "DELETE FROM PRODUCT WHERE NAME= '"+name+"'";
       stmt.executeUpdate(sql);
       stmt.close();
       conn.close();
     } catch (ClassNotFoundException | SQLException e) {
       e.printStackTrace();
     }
+    }
+
+  /**
+   * METHOD NAME: remove_productionLog
+   * PURPOSE: This method clears the entire production log when the 'Remove Log' button is clicked
+   * by the user.
+   */
+  public static void remove_productionLog(){
+      // Because the method is static, the driver and URl need to be declared inside of the method.
+      final String jcbdDriver = "org.h2.Driver";
+      final String dbUrl = "jdbc:h2:C:/Users/feesh/OneDrive/intelliJCOP/productionProject/res";
+      // login credentials to get into the database.
+      final String user = "";
+      final String pass = "";
+      // Initializing the connection and prepared statement for later use.
+      Connection conn = null;
+      Statement stmt = null;
+
     try {
       Class.forName(jcbdDriver);
       conn = DriverManager.getConnection(dbUrl, user, pass);
@@ -143,8 +161,6 @@ public class DatabaseAccessor {
     } catch (ClassNotFoundException | SQLException e) {
       e.printStackTrace();
     }
-
-
   }
 
   /**
@@ -184,6 +200,12 @@ public class DatabaseAccessor {
     }
 
 
+  /**
+   * METHOD NAME: add_production_record
+   * PURPOSE: This purpose of this method is to connect to the database, take in the
+   * product as an argument and add it to the PRODUCTIONRECORD database.
+   * @param pr
+   */
     public static void add_production_record(ProductionRecord pr){
       final String jcbdDriver = "org.h2.Driver";
       final String dbUrl = "jdbc:h2:C:/Users/feesh/OneDrive/intelliJCOP/productionProject/res";
@@ -215,7 +237,7 @@ public class DatabaseAccessor {
         conn.close();
       } catch (ClassNotFoundException | SQLException e) {
         e.printStackTrace();
-      } // End of catch.
+      }
     } // End of insertProduct method.
 
 

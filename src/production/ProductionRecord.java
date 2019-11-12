@@ -65,7 +65,7 @@ public class ProductionRecord {
     this.name = name;
     this.productID = productID;
     this.serialNumber = serialNumber;
-    date = new Date();
+    this.date = new Date();
 
   }
 

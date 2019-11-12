@@ -1,8 +1,5 @@
 package production;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,12 +14,9 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-  //To update the current product, need global variable.
-  public static AudioPlayer ap;
-  public static MoviePlayer mp;
   @Override
   public void start(Stage primaryStage) throws Exception {
-    Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+    Parent root = FXMLLoader.load(getClass().getResource("ProductionScreen.fxml"));
     primaryStage.setTitle("Production Task: ");
     primaryStage.setScene(new Scene(root, 800, 600));
     primaryStage.show();
@@ -41,7 +35,7 @@ public class Main extends Application {
     // System.out.println(testS);
 
     // test constructor used when creating production records from user interface
-    Integer numProduced = 3; // this will come from the combobox in the UI
+    //Integer numProduced = 3; // this will come from the combobox in the UI
 
 
    /* //issue 4
