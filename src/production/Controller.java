@@ -5,13 +5,20 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -21,70 +28,89 @@ import javafx.scene.input.MouseEvent;
 @SuppressWarnings("ALL")
 public class Controller {
 
-  /**
-   * The database driver is established using a string, and an h2 driver is entered into the
-   * arugment. The url can be found in the database properties. It is copied and pasted into the
-   * string argument for url.
-   */
-  private static final String jcbdDriver = "org.h2.Driver";
+  final String jcbdDriver = "org.h2.Driver";
+  final String dbUrl = "jdbc:h2:C:/Users/feesh/OneDrive/intelliJCOP/productionProject/res";
+  // login credentials to get into the database.
+  final String user = "";
+  final String pass = "";
+  // Initializing the connection and prepared statement for later use.
+  Connection conn = null;
+  Statement stmt = null;
 
-  private static final String dbUrl =
-      "jdbc:h2:C:/Users/feesh/OneDrive/intelliJCOP/productionProject/res";
-  /**
-   * The database credentials for logging into the database. This increases the security of the
-   * database. Username and password can be entered into database properties.
-   */
-  private static final String user = "username";
-
-  private static final String pass = "password";
-  /**
-   * Declaring the object Connection, imports all of the fields and methods used to establish a
-   * conneciton. Declaring the object Statement will allow queries to be passed to the database, so
-   * that it can be accessed.
-   */
-  private Connection conn = null;
-
-  private Statement stmt = null;
+  // ************************************************************************************************
+  // FXML VARIABLES
   /**
    * These are the components of the scenebuilder application. Each component that is going to be
    * used as a function in the application is declared in the controller. After the component is
    * declared, the function will follow
    */
-  @FXML private TextField productNameTxtBox;
+  @FXML private Button btn_add_product;
 
-  @FXML private TextField maunfacturerTxtBox;
-  @FXML private ChoiceBox<?> typeChoicebox;
-  @FXML private TableColumn<?, ?> existingProducts;
-  @FXML private Button addProductBtn;
+  @FXML private Button Btn_remove;
+
+  @FXML private ChoiceBox<ItemType> choiceB_type;
+
+  @FXML private ComboBox<Integer> combo_quantity;
+
+  @FXML private ListView listView_eProducts;
+
   @FXML private Button recordProductionBtn;
 
-  /**
-   * Main method of the controller. not completely necessary, but it is being used to establish that
-   * a connection has been made.
-   */
-  public static void main(String[] args) {
-    System.out.println("Database Connected");
-  } // End of main.
+  @FXML private TextArea textArea_productLog;
+
+  @FXML private TextField txtField_manufacturer;
+
+  @FXML private TextField TxtField_Product;
+
+  @FXML private TableColumn<?, ?> viewName;
+
+  @FXML private TableColumn<?, ?> viewManu;
+
+  @FXML private TableColumn<?, ?> viewType;
+
+  @FXML private TableView<Product> viewProducts;
+
+
+  // ************************************************************************************************
+  // METHODS:
 
   /**
-   * This is going to display the products currently in the database to a table in the application.
-   * When the cells are prompted to be editted, they will be filled with the data in the production
-   * database.
+   * METHOD NAME: Initalize PURPOSE: This method will fill the choice box with the enum values from
+   * ItemType. The if/else statement will iterate through the values of the enum and store them into
+   * the choice box. The statement also checks to box to see if it is currently empty. If it is
+   * empty, it will fill the choice box, if it is not empty, then it will display the choice box.
+   * This is also so that the box does not fill with the values over and over again.
    */
-  @FXML
-  void display_products(CellEditEvent<?, ?> event) {
-    /*
-     Try statement is made to call the driver, and to connect to the database. Using the
-     connection object, conn, and statement object stmt, a query is made. The query that is being
-     made is accessing the database to obtain the information inside of PRODUCT table. The query
-     is made by declaring a string, sql, and inputing the command inside of it. This is also known
-     as a prepared statement. ResultSet will send the statement and execute the query.
-    */
+  public void initialize() {
+
+    // If/else statement to populate the choicebox for itemtype.
+    if (choiceB_type.getItems().isEmpty()) {
+      choiceB_type.getItems().addAll(ItemType.values());
+    } else {
+      choiceB_type.show();
+    }
+
+    // Similar statement is made to populate the combobox.
+    if (combo_quantity.getItems().isEmpty()) {
+      combo_quantity.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+    } else {
+      System.out.println(" ");
+    }
+    // call methods that need to be called when the program starts
+    getName();
+    //testMultimedia();
+    populateTableView();
+}
+   public void populateTableView(){
+     // Initilize array list for products
+     ArrayList<Product> aListProducts = new ArrayList();
+      String sql = "SELECT * FROM PRODUCT";
+      aListProducts.clear();
+      viewProducts.getItems().clear();
     try {
       Class.forName(jcbdDriver);
       conn = DriverManager.getConnection(dbUrl, user, pass);
       stmt = conn.createStatement();
-      String sql = "SELECT * FROM PRODUCT";
       ResultSet rs = stmt.executeQuery(sql);
       /*
        A while loop is made to display the information line by line in an organized manner. After
@@ -92,106 +118,191 @@ public class Controller {
        closed using a similar function, conn.close().
       */
       while (rs.next()) {
-        System.out.println(rs.getString(1));
-      } // End of while.
+        final String pName = rs.getString("NAME");
+        final String pManu = rs.getString("MANUFACTURER");
+        final String pType = rs.getString("TYPE");
+        ItemType type;
+        switch (pType) {
+          case "AUDIO":
+            type = ItemType.AUDIO;
+            break;
+          case "VISUAL":
+            type = ItemType.VISUAL;
+            break;
+          case "AUDIO_MOBILE":
+            type = ItemType.AUDIO_MOBILE;
+            break;
+          default:
+            type = ItemType.VISUAL_MOBILE;
+        }
+        Product dbProduct = new Widget(pName, pManu, type);
+        aListProducts.add(dbProduct);
+        ObservableList<Product> listProducts = FXCollections.observableArrayList(aListProducts);
+        viewProducts.setItems(listProducts);
+      }
+      // Close the connection
       stmt.close();
       conn.close();
+    }catch(ClassNotFoundException e){
+     System.out.println("Class not found when selecting items from PRODUCTION database.");
+    }catch (SQLException e){
+      System.out.println("SQL Exception when selecting items from PRODUCTION database");
+    }
+    } // End of catch.
+
+
+  /** METHOD NAME: testMultimedia() PURPOSE: Demonstrates functionality in the user interface. */
+  public static void testMultimedia() {
+    AudioPlayer newAudioProduct =
+        new AudioPlayer(
+            "DP-X1A", "Onkyo", "DSD/FLAC/ALAC/WAV/AIFF/MQA/Ogg-Vorbis/MP3/AAC", "M3U/PLS/WPL");
+    Screen newScreen = new Screen("720x480", 40, 22);
+    MoviePlayer newMovieProduct =
+        new MoviePlayer("DBPOWER MK101", "OracleProduction", newScreen, MonitorType.LCD);
+    ArrayList<MultimediaControl> productList = new ArrayList<MultimediaControl>();
+    productList.add(newAudioProduct);
+    productList.add(newMovieProduct);
+    for (MultimediaControl p : productList) {
+      System.out.println(p);
+      p.play();
+      p.stop();
+      p.next();
+      p.previous();
+    }
+  }
+
+  /*
+   * METHOD NAME: recordProduction
+   * Purpose: This method will connect to the database and select the
+   * column name column and store the values in the name column into the
+   * record production listview.
+   */
+  public void getName() {
+
+    try {
+      Class.forName(jcbdDriver);
+      conn = DriverManager.getConnection(dbUrl, user, pass);
+      stmt = conn.createStatement();
+      String sql = "SELECT NAME FROM PRODUCT";
+      ResultSet rs = stmt.executeQuery(sql);
       /*
-       Catch is used to catch an exception so the application is not terminated. The
-       ClassNotFoundExeception or SQLException are both considered, and if caught, will display
-       their stack trace.
+       A while loop is made to display the information line by line in an organized manner. After
+       the data is displayed, the query is closed using stmt.close(). The connection is also
+       closed using a similar function, conn.close().
       */
+
+      while (rs.next()) {
+        final String pName = rs.getString("NAME");
+        if (listView_eProducts.getItems().contains(pName)) {
+          System.out.println("");
+        } else {
+          listView_eProducts.getItems().addAll(pName);
+        }
+      }
+      // Close the connection
+      stmt.close();
+      conn.close();
     } catch (ClassNotFoundException | SQLException e) {
       e.printStackTrace();
     } // End of catch.
-  } // End of display_products.
+  }
+
+  public void record_production(MouseEvent mouseEvent) {
+    add_productLog();
+    System.out.println("product added");
+  }
 
   /**
-   * This is the function that will add products to the database. 10 products have already been
-   * entered using this function. The button labeled "add product" adds a product to the database.
-   * When the button is clicked by the mouse, the information is entered.
+   * METHOD NAME: add_productLog. PURPOSE: Set the table view to editable, so that it can have items
+   * added to it. Then the columns are made that reflect the database. The columns are then added to
+   * the table view.
+   */
+  public void add_productLog() {
+    ObservableList<String>selectedItem;
+    selectedItem = listView_eProducts.getSelectionModel().getSelectedItems();
+    String prodName = selectedItem.get(0);
+
+
+    try {
+      Class.forName(jcbdDriver);
+      conn = DriverManager.getConnection(dbUrl, user, pass);
+      stmt = conn.createStatement();
+      String sql = "SELECT * FROM PRODUCT WHERE NAME= '"+prodName+"'";
+      ResultSet rs = stmt.executeQuery(sql);
+      /*
+       A while loop is made to display the information line by line in an organized manner. After
+       the data is displayed, the query is closed using stmt.close(). The connection is also
+       closed using a similar function, conn.close().
+      */
+      while (rs.next()) {
+        String pName = rs.getString("NAME");
+        String pManufacturer = rs.getString("MANUFACTURER");
+        String pType = rs.getString("TYPE");
+        int quantity = combo_quantity.getValue();
+        ProductionRecord addProduction = new ProductionRecord(1, quantity, pManufacturer.substring(0,3)+"0000", new Date());
+        DatabaseAccessor.add_production_record(addProduction);
+        ProductionRecord displayProduction = new ProductionRecord(pName, quantity, pManufacturer.substring(0,3)+"0000", new Date());
+        textArea_productLog.appendText(displayProduction.toStringWithName());
+      }
+      // Close the connection
+      stmt.close();
+      conn.close();
+    } catch (ClassNotFoundException | SQLException e) {
+      e.printStackTrace();
+    } // End of catch.
+
+    }
+
+
+  /**
+   * METHOD NAME: display_products. PURPOSE: This method is going to call the DatabaseAccessor's
+   * method displayProducts, where the database will be connected and the information inside of the
+   * database will be put into the table view whent he populate table button is hit.
+   */
+  @FXML
+  void display_products(MouseEvent event) {
+    DatabaseAccessor.displayProducts();
+  } // End of display_products.
+
+  /*
+   * METHOD NAME: remove_product
+   * PURPOSE: This method will remove a selected item from the database based on the product ID.
+   */
+  @FXML
+  void remove_product(MouseEvent event) {
+    DatabaseAccessor.removeProduct();
+  }
+
+  /**
+   * METHOD NAME: add_product PURPOSE: This is the function that will add products to the database.
+   * 10 products have already been entered using this function. The button labeled "add product"
+   * adds a product to the database. When the button is clicked by the mouse, the information is
+   * entered.
    */
   @FXML
   void add_product(MouseEvent event) {
-    /*
-     Similar to the try statement before, the driver is called, and a connection is established.
-     Instead of accessing the database to display the information inside,
-     this statement sends a query to add information
-     The statement sends a query to the database with information to input into the database.
-     The statment execution is updated, and the database then contains the inserted code.
-     The statement is then closed, as well as the connection.
-    */
-    try {
-      Class.forName(jcbdDriver);
+    // When using a textfield, the method getText() is used to get the text entered by user.
+    final String add_product_name = TxtField_Product.getText();
+    final String add_manufacturer = txtField_manufacturer.getText();
+    // When using a choice box, the method getValue() is used to get the users selection.
+    final ItemType get_type = choiceB_type.getValue();
+    // Cast the type to a string so the database can accept it smoothly.
+    final String type_string = get_type.toString();
+    Product W = new Widget(add_product_name, add_manufacturer, get_type);
+    // Call the DatabaseAccessor class to insert information into the database entered by user.
+    DatabaseAccessor.insertProduct(W);
+    // Call initilize again, so the screen can refresh with updated information.
+    initialize();
 
-      conn = DriverManager.getConnection(dbUrl, user, pass);
+    // Print statement confirming the users information that is being added to the database.
+    System.out.println(
+        "\nInformation that has been added to the database succesfully:"
+            + "\nName: "
+            + add_product_name
+            + "\nManufacturer: "
+            + add_manufacturer
+            + "\nType: "
+            + type_string);
+  }
+}
 
-      stmt = conn.createStatement();
-
-      String sql =
-          "INSERT INTO PRODUCT(NAME, TYPE, MANUFACTURER) VALUES('NAME', 'TYPE', 'MANUFACTURER')";
-
-      stmt.executeUpdate(sql);
-      stmt.close();
-      conn.close();
-      /*
-       Also similar to the earlier catch, this will catch the exceptions, so the code can still run.
-      */
-    } catch (ClassNotFoundException | SQLException e) {
-      e.printStackTrace();
-    } // End catch.
-
-    System.out.println("Product Added");
-  } // End add_product.
-
-  /**
-   * This function will take the button on the application labeled record production, and give it
-   * function. The button will take orders from the client of what they would like produced.
-   */
-  @FXML
-  void record_production(MouseEvent event) {
-    System.out.println("Your order has been recorded");
-  } // End of record_production
-
-  /**
-   * This function will take the user input entered into the text box. This will be accomplished by
-   * using the getProductName function. Then, this function will set a query to insert a product by
-   * name into the database.
-   */
-  public void input_products(CellEditEvent<?, ?> cellEditEvent) {
-    System.out.println("Product name has been entered");
-  } // End of input_products.
-
-  /**
-   * This function is used to display the different production types into a choice box. The choice
-   * box will have options once it is called by context.
-   */
-  public void display_types(ContextMenuEvent contextMenuEvent) {
-    System.out.println("Production types have been updated.");
-  } // End of display_names.
-  /**
-   * This function is used to scan the users input into the text box, and store it. Once it is
-   * stored, it will be called by the input_product function so that it can be used in a query.
-   */
-
-  public void getProductName(MouseEvent mouseEvent) {
-    System.out.println("Product name has been scanned and stored.");
-  } // End of getProductName.
-
-  /**
-   * This function will be used to scan the manufacturer text box, and store the user input. Once
-   * the input is stored, it will be used in a query to store the information into the database.
-   */
-  public void getManufacturer(MouseEvent mouseEvent) {
-    System.out.println("Manufactuer has been scanned and stored.");
-  } // End of getManufacturer.
-
-  /**
-   * This function will be used by the type choice box. Once a selection has been made using the
-   * mouse, that value will be stored into a variable. The variable will then be used in a query to
-   * store in the entered information into the database.
-   */
-  public void getType(MouseEvent mouseEvent) {
-    System.out.println("Type has been selected and stored.");
-  } // End of getType.
-} // End of Controller class.
