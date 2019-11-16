@@ -1,3 +1,4 @@
+package production;
 /**
  * *********************************************************
  * File : MoviePlayer.Java
@@ -6,11 +7,18 @@
  * Purpose : This class extends Product and implements MultimediaControl.
  * **********************************************************
  */
-package production;
+
+
 
 public class MoviePlayer extends Product implements MultimediaControl {
   Screen newScreen;
   MonitorType monitorType;
+
+  /**
+   * METHOD NAME: MoviePlayer
+   * Purpose: Constructor for the MoviePlayer class. Takes in two string arugments, a Screen
+   * and a Monitor type.
+   */
 
   public MoviePlayer(String name, String manufacturer, Screen newScreen, MonitorType monitorType) {
     super(name, manufacturer, ItemType.VISUAL);

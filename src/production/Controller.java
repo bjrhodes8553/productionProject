@@ -29,14 +29,14 @@ import javafx.scene.input.MouseEvent;
 @SuppressWarnings("ALL")
 public class Controller {
 
-  //***********************************************************************************************
-  //INITIALIZE DATABASE:
-  //Declare the Driver and the URL in the Class so the methods can have access to it.
-  final static String jcbdDriver = "org.h2.Driver";
-  final static String dbUrl = "jdbc:h2:C:/Users/feesh/OneDrive/intelliJCOP/productionProject/res";
+  // ***********************************************************************************************
+  // INITIALIZE DATABASE:
+  // Declare the Driver and the URL in the Class so the methods can have access to it.
+  final String jcbdDriver = "org.h2.Driver";
+  final String dbUrl = "jdbc:h2:C:/Users/feesh/OneDrive/intelliJCOP/productionProject/res";
   // login credentials to get into the database.
-  final static String user = "";
-  final static String pass = "";
+  final String user = "";
+  final String pass = "";
   // Initializing the connection and prepared statement for later use.
   Connection conn = null;
   Statement stmt = null;
@@ -47,40 +47,41 @@ public class Controller {
    * used as a function in the application is declared in the controller. After the component is
    * declared, the function will follow
    */
-  @FXML private Button btn_add_product;
+  @FXML private Button btnAddProduct;
 
-  @FXML private Button Btn_remove;
+  @FXML private Button btnRemove;
 
-  @FXML private Button btn_remove_log;
+  @FXML private Button btnRemoveLog;
 
-  @FXML private ChoiceBox<ItemType> choiceB_type;
+  @FXML private Button btnRecordProduct;
 
-  @FXML private ComboBox<Integer> combo_quantity;
+  @FXML private ChoiceBox<ItemType> choicebType;
 
-  @FXML private ImageView image_logo;
+  @FXML private ComboBox<Integer> comboQuantity;
 
-  @FXML private ListView listView_eProducts;
+  @FXML private ImageView imageLogo;
 
-  @FXML private Button recordProductionBtn;
+  @FXML private ListView listViewEProducts;
 
-  @FXML private TextArea textArea_productLog;
+  @FXML private TextArea textAreaProductLog;
 
-  @FXML private TextField txtField_manufacturer;
+  @FXML private TextField txtFieldManufacturer;
 
-  @FXML private TextField txtField_Product;
+  @FXML private TextField txtFieldProduct;
 
-  @FXML private TableColumn<?, ?> viewName;
+  @FXML private TableColumn<?, ?> tableColViewName;
 
-  @FXML private TableColumn<?, ?> viewManu;
+  @FXML private TableColumn<?, ?> tableColViewManu;
 
-  @FXML private TableColumn<?, ?> viewType;
+  @FXML private TableColumn<?, ?> tableColViewType;
 
-  @FXML private TableView<Product> viewProducts;
-  // ************************************************************************************************
+  @FXML private TableView<Product> tableViewProduct;
+  // *********************************************************************************************
   // METHODS:
 
-  /*
-   * METHOD NAME: Initalize PURPOSE: This method will fill the choice box with the enum values from
+  /**
+   * METHOD NAME: Initalize
+   * PURPOSE: This method will fill the choice box with the enum values from
    * ItemType. The if/else statement will iterate through the values of the enum and store them into
    * the choice box. The statement also checks to box to see if it is currently empty. If it is
    * empty, it will fill the choice box, if it is not empty, then it will display the choice box.
@@ -89,50 +90,51 @@ public class Controller {
   public void initialize() {
 
     // If/else statement to populate the choicebox for itemtype.
-    if (choiceB_type.getItems().isEmpty()) {
-      //The choicebox will add all of the items in ItemType.values()
-      choiceB_type.getItems().addAll(ItemType.values());
+    if (choicebType.getItems().isEmpty()) {
+      // The choicebox will add all of the items in ItemType.values()
+      choicebType.getItems().addAll(ItemType.values());
     } else {
-      //If the choicebox is not empty, it will just show the values and not add more items.
-      choiceB_type.show();
+      // If the choicebox is not empty, it will just show the values and not add more items.
+      choicebType.show();
     }
 
     // Similar statement is made to populate the combobox.
-    if (combo_quantity.getItems().isEmpty()) {
-      //If there are no values in the combobox, it will generate items in the combobox.
-      combo_quantity.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-          16, 17, 18, 19, 20);
+    if (comboQuantity.getItems().isEmpty()) {
+      // If there are no values in the combobox, it will generate items in the combobox.
+      comboQuantity
+          .getItems()
+          .addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20);
     } else {
-      //If the combobox already contains the items, then it will just print a blank statement.
+      // If the combobox already contains the items, then it will just print a blank statement.
       System.out.println(" ");
     }
     // call methods that need to be called when the program starts
     getName();
-    //testMultimedia(); -- (commented out until needed.)
+    // testMultimedia(); -- (commented out until needed.)
     populate_tableview();
-}//End of intialize method.
+  } // End of intialize method.
 
-
-  /*
+  /**
    * METHOD NAME: populate_tableview()
    * PURPOSE: The purpose of this method is to populate the tableview on the first tab the user
    * comes across. The tableview is generated from the items in the database.
    */
-  public void populate_tableview(){
-     // Initilize array list for products
-     ArrayList<Product> productArrayList = new ArrayList<Product>();
-     //Initialize the observable list that will be added to the tableview.
-     ObservableList<Product>productOlist = FXCollections.observableArrayList();
-     //Set the cell value factory for the columns of the tableview.
-     viewName.setCellValueFactory(new PropertyValueFactory("Name"));
-     viewManu.setCellValueFactory(new PropertyValueFactory("Manufacturer"));
-     viewType.setCellValueFactory(new PropertyValueFactory("Type"));
-     //Create sql statement.
-      String sql = "SELECT * FROM PRODUCT";
-      //Clear the ArrayList and the ObservableList.
-      productArrayList.clear();
-      productOlist.clear();
-      //Try statement starts and set up connection for database.
+  public void populate_tableview() {
+    // Set the cell value factory for the columns of the tableview.
+    tableColViewName.setCellValueFactory(new PropertyValueFactory("Name"));
+    tableColViewManu.setCellValueFactory(new PropertyValueFactory("Manufacturer"));
+    tableColViewType.setCellValueFactory(new PropertyValueFactory("Type"));
+    // Create sql statement.
+    String sql = "SELECT * FROM PRODUCT";
+    // Clear the ArrayList and the ObservableList.
+    // Initialize the observable list that will be added to the tableview.
+    ObservableList<Product> productOlist = FXCollections.observableArrayList();
+    // Initilize array list for products
+    ArrayList<Product> productArrayList = new ArrayList<Product>();
+    // Clear the ArrayList and the ObservableList.
+    productArrayList.clear();
+    productOlist.clear();
+    // Try statement starts and set up connection for database.
     try {
       Class.forName(jcbdDriver);
       conn = DriverManager.getConnection(dbUrl, user, pass);
@@ -147,7 +149,7 @@ public class Controller {
         final String pName = rs.getString("NAME");
         final String pManu = rs.getString("MANUFACTURER");
         final String pType = rs.getString("TYPE");
-        //Initialize type as an ItemType so when a Product is created,it has correct parameters.
+        // Initialize type as an ItemType so when a Product is created,it has correct parameters.
         ItemType type;
         switch (pType) {
           case "AUDIO":
@@ -161,25 +163,24 @@ public class Controller {
             break;
           default:
             type = ItemType.VISUAL_MOBILE;
-        }//End of switch statement.
-        //Create Product object that will be added to the list.
+        } // End of switch statement.
+        // Create Product object that will be added to the list.
         Product dbProduct = new Widget(pName, pManu, type);
         productArrayList.add(dbProduct);
-        viewProducts.setItems(productOlist);
+        tableViewProduct.setItems(productOlist);
         productOlist.add(dbProduct);
-      }//End of while loop.
+      } // End of while loop.
       // Close the connection
       stmt.close();
       conn.close();
-    }catch(ClassNotFoundException e){
-     System.out.println("Class not found when selecting items from PRODUCTION database.");
-    }catch (SQLException e){
+    } catch (ClassNotFoundException e) {
+      System.out.println("Class not found when selecting items from PRODUCTION database.");
+    } catch (SQLException e) {
       System.out.println("SQL Exception when selecting items from PRODUCTION database");
-    }// End of catch.
-    } //End of populate_tableview.
+    } // End of catch.
+  } // End of populate_tableview.
 
-
-  /*
+  /**
    *  METHOD NAME: testMultimedia()
    * PURPOSE: Demonstrates functionality in the user interface.
    */
@@ -202,7 +203,7 @@ public class Controller {
     }
   }
 
-  /*
+  /**
    * METHOD NAME: recordProduction
    * Purpose: This method will connect to the database and select the
    * column name column and store the values in the name column into the
@@ -210,8 +211,7 @@ public class Controller {
    */
   public void getName() {
 
-
-    //Try statement and connect to the database.
+    // Try statement and connect to the database.
     try {
       Class.forName(jcbdDriver);
       conn = DriverManager.getConnection(dbUrl, user, pass);
@@ -224,34 +224,33 @@ public class Controller {
        closed using a similar function, conn.close().
       */
       while (rs.next()) {
-        String pName = rs.getString("NAME");
-        //If the listview already contains that name, it will print a blank statement.
-        if (listView_eProducts.getItems().contains(pName)) {
-          //If the listview doesnt have the name, then it will add it to the listview.
+        String productName = rs.getString("NAME");
+        // If the listview already contains that name, it will print a blank statement.
+        if (listViewEProducts.getItems().contains(productName)) {
+          // If the listview doesnt have the name, then it will add it to the listview.
         } else {
-          listView_eProducts.getItems().addAll(pName);
-          //Call initialize again to reset the screen with proper settings.
+          listViewEProducts.getItems().addAll(productName);
+          // Call initialize again to reset the screen with proper settings.
           initialize();
         }
-      }//End of while.
+      } // End of while.
       // Close the connection
       stmt.close();
       conn.close();
     } catch (ClassNotFoundException | SQLException e) {
       e.printStackTrace();
     } // End of catch.
-  }//End of getName method.
+  } // End of getName method.
 
   /**
-   * METHOD NAME: record_production
-   * PURPOSE: The purpose of this method is to call the add_productLog when the button is clicked,
-   * and also to print a statement that informs the user has added a product.
-   * @param mouseEvent
+   * METHOD NAME: record_production PURPOSE: The purpose of this method is to call the
+   * add_productLog when the button is clicked, and also to print a statement that informs the user
+   * has added a product.
    */
   public void record_production(MouseEvent mouseEvent) {
     add_productLog();
     System.out.println("product added");
-  }//End of record_production method.
+  } // End of record_production method.
 
   /**
    * METHOD NAME: add_productLog. PURPOSE: Set the table view to editable, so that it can have items
@@ -259,19 +258,19 @@ public class Controller {
    * the table view.
    */
   public void add_productLog() {
-    //Declare ObservableList object that the listview can store its items in.
-    ObservableList<String>selectedItem;
-    //The observableList will be set to the selected item in the listview.
-    selectedItem = listView_eProducts.getSelectionModel().getSelectedItems();
-    //A string is set equal to the item value selected.
+    // Declare ObservableList object that the listview can store its items in.
+    ObservableList<String> selectedItem;
+    // The observableList will be set to the selected item in the listview.
+    selectedItem = listViewEProducts.getSelectionModel().getSelectedItems();
+    // A string is set equal to the item value selected.
     String prodName = selectedItem.get(0);
 
-    //Try statement with connection establishment.
+    // Try statement with connection establishment.
     try {
       Class.forName(jcbdDriver);
       conn = DriverManager.getConnection(dbUrl, user, pass);
       stmt = conn.createStatement();
-      String sql = "SELECT * FROM PRODUCT WHERE NAME= '"+prodName+"'";
+      String sql = "SELECT * FROM PRODUCT WHERE NAME= '" + prodName + "'";
       ResultSet rs = stmt.executeQuery(sql);
       /*
        A while loop is made to display the information line by line in an organized manner. After
@@ -279,35 +278,33 @@ public class Controller {
        closed using a similar function, conn.close().
       */
       while (rs.next()) {
-        String pName = rs.getString("NAME");
-        String pManufacturer = rs.getString("MANUFACTURER");
-        String pType = rs.getString("TYPE");
-        //Get the value from the comboBox, and store in variable quantity.
-        int quantity = combo_quantity.getValue();
-        //For loop to create as many items in ProductionRecord as the quantity selected.
-        for (int i = 1; i < quantity+1; i++) {
-          //Create a ProductionRecord object that is set to the value by user.
+        String productName = rs.getString("NAME");
+        String productManu = rs.getString("MANUFACTURER");
+        String productType = rs.getString("TYPE");
+        // Get the value from the comboBox, and store in variable quantity.
+        int quantity = comboQuantity.getValue();
+        // For loop to create as many items in ProductionRecord as the quantity selected.
+        for (int i = 1; i < quantity + 1; i++) {
+          // Create a ProductionRecord object that is set to the value by user.
           ProductionRecord addProduction =
-              new ProductionRecord(1, i, pManufacturer.substring(0, 3) + "0000" + i, new Date());
-          //Call the add_production_record method from the DatabaseAccessor class.
+              new ProductionRecord(1, i, productManu.substring(0, 3) + "0000" + i, new Date());
+          // Call the add_production_record method from the DatabaseAccessor class.
           DatabaseAccessor.add_production_record(addProduction);
-          //Create another object that will display the RecordProduction.
+          // Create another object that will display the RecordProduction.
           ProductionRecord displayProduction =
               new ProductionRecord(
-                  pName, i, pManufacturer.substring(0, 3) + "0000" + i, new Date());
-          //The textarea will display the product name, ProductID, serial number and dateProduced.
-          textArea_productLog.appendText(displayProduction.toStringWithName());
-        }//End of for.
-        }//End of while.
+                  productName, i, productManu.substring(0, 3) + "0000" + i, new Date());
+          // The textarea will display the product name, ProductID, serial number and dateProduced.
+          textAreaProductLog.appendText(displayProduction.toStringWithName());
+        } // End of for.
+      } // End of while.
       // Close the connection
       stmt.close();
       conn.close();
     } catch (ClassNotFoundException | SQLException e) {
       e.printStackTrace();
     } // End of catch.
-
-    }//End of add_productlog method.
-
+  } // End of add_productlog method.
 
   /**
    * METHOD NAME: display_products. PURPOSE: This method is going to call the DatabaseAccessor's
@@ -325,53 +322,48 @@ public class Controller {
    */
   @FXML
   void remove_product(MouseEvent event) {
-    //Initialize Observablelist.
-    ObservableList<Product>list;
-    //In the ObservableList, allow the user to select an item from the list, and store value.
-    list = viewProducts.getSelectionModel().getSelectedItems();
-    //Product object is going to be set the value selected from the list.
+    // Initialize Observablelist.
+    ObservableList<Product> list;
+    // In the ObservableList, allow the user to select an item from the list, and store value.
+    list = tableViewProduct.getSelectionModel().getSelectedItems();
+    // Product object is going to be set the value selected from the list.
     Product name = list.get(0);
-    //Get the name from the product and pass it as an arugment for the removeProduct method.
+    // Get the name from the product and pass it as an arugment for the removeProduct method.
     String itemName = name.getName();
-    //Call removeProduct method from DatabaseAccessor class.
-   DatabaseAccessor.removeProduct(itemName);
-    listView_eProducts.getItems().remove(itemName);
-    //Re-initialize the screen, and clear the textfields.
+    // Call removeProduct method from DatabaseAccessor class.
+    DatabaseAccessor.removeProduct(itemName);
+    listViewEProducts.getItems().remove(itemName);
+    // Re-initialize the screen, and clear the textfields.
     initialize();
     clear_textfields();
   }
 
   /**
-   * METHOD NAME: remove_productionLog
-   * PURPOSE: This purpose of this method is to clear the production log in the text area as well
-   * as the PRODUCTIONRECORD database.
-   * @param event
+   * METHOD NAME: remove_productionLog PURPOSE: This purpose of this method is to clear the
+   * production log in the text area as well as the PRODUCTIONRECORD database.
    */
   @FXML
   void remove_productionLog(MouseEvent event) {
-    //Clear the text area.
-    textArea_productLog.clear();
-    //Call the remove_productionLog method from the DatabaseAccessor class.
+    // Clear the text area.
+    textAreaProductLog.clear();
+    // Call the remove_productionLog method from the DatabaseAccessor class.
     DatabaseAccessor.remove_productionLog();
-  }//end of remove_productionLog.
+  } // end of remove_productionLog.
 
   /**
-   * METHOD NAME: clear_textfields
-   * PURPOSE: The purpose of this method is to clear the text fields after information
-   * has been stored into the database or if the database is cleared.
+   * METHOD NAME: clear_textfields PURPOSE: The purpose of this method is to clear the text fields
+   * after information has been stored into the database or if the database is cleared.
    */
-  void clear_textfields(){
-    //Clear the textfields of manufacturer and product name.
-    txtField_manufacturer.clear();
-    txtField_Product.clear();
-    //Hide the choicebox for type.
-    choiceB_type.hide();
-  }//End of clear_textfields.
-
+  void clear_textfields() {
+    // Clear the textfields of manufacturer and product name.
+    txtFieldManufacturer.clear();
+    txtFieldProduct.clear();
+    // Hide the choicebox for type.
+    choicebType.hide();
+  } // End of clear_textfields.
 
   /**
-   * METHOD NAME: add_product
-   * PURPOSE: This is the function that will add products to the database.
+   * METHOD NAME: add_product PURPOSE: This is the function that will add products to the database.
    * 10 products have already been entered using this function. The button labeled "add product"
    * adds a product to the database. When the button is clicked by the mouse, the information is
    * entered.
@@ -379,15 +371,15 @@ public class Controller {
   @FXML
   void add_product(MouseEvent event) {
     // When using a textfield, the method getText() is used to get the text entered by user.
-    final String add_product_name = txtField_Product.getText();
-    final String add_manufacturer = txtField_manufacturer.getText();
+    final String add_product_name = txtFieldProduct.getText();
+    final String add_manufacturer = txtFieldManufacturer.getText();
     // When using a choice box, the method getValue() is used to get the users selection.
-    final ItemType get_type = choiceB_type.getValue();
+    final ItemType get_type = choicebType.getValue();
     // Cast the type to a string so the database can accept it smoothly.
     final String type_string = get_type.toString();
-    Product W = new Widget(add_product_name, add_manufacturer, get_type);
+    Product productWidget = new Widget(add_product_name, add_manufacturer, get_type);
     // Call the DatabaseAccessor class to insert information into the database entered by user.
-    DatabaseAccessor.insertProduct(W);
+    DatabaseAccessor.insertProduct(productWidget);
     // Call initilize again, so the screen can refresh with updated information.
     initialize();
 
@@ -403,4 +395,3 @@ public class Controller {
     clear_textfields();
   }
 }
-

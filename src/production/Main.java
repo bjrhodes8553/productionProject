@@ -26,92 +26,85 @@ public class Main extends Application {
   public static void main(String[] args) {
     launch(args);
 
-
-
-
-
     // Screen newScreen = new Screen("720x480", 40, 22);
     // String testS = newScreen.toString();
     // System.out.println(testS);
 
     // test constructor used when creating production records from user interface
-    //Integer numProduced = 3; // this will come from the combobox in the UI
+    // Integer numProduced = 3; // this will come from the combobox in the UI
 
+    /* //issue 4
+   for (int productionRunProduct = 0; productionRunProduct < numProduced; productionRunProduct++) {
+          ProductionRecord pr = new ProductionRecord(0);
+          System.out.println(pr.toString());
+        }
 
-   /* //issue 4
-    for (int productionRunProduct = 0; productionRunProduct < numProduced; productionRunProduct++) {
-      ProductionRecord pr = new ProductionRecord(0);
-      System.out.println(pr.toString());
-    }
+        // test constructor used when creating production records from reading database
+        ProductionRecord pr = new ProductionRecord(0, 3, "1", new Date());
+        System.out.println(pr.toString());
 
-    // test constructor used when creating production records from reading database
-    ProductionRecord pr = new ProductionRecord(0, 3, "1", new Date());
-    System.out.println(pr.toString());
+        // testing accessors and mutators
+        pr.setProductionNum(1);
+        System.out.println(pr.getProductionNum());
 
-    // testing accessors and mutators
-    pr.setProductionNum(1);
-    System.out.println(pr.getProductionNum());
+        pr.setProductID(4);
+        System.out.println(pr.getProductID());
 
-    pr.setProductID(4);
-    System.out.println(pr.getProductID());
+        pr.setSerialNum("2");
+        System.out.println(pr.getSerialNum());
 
-    pr.setSerialNum("2");
-    System.out.println(pr.getSerialNum());
+        pr.setProdDate(new Date());
+        System.out.println(pr.getProdDate());
 
-    pr.setProdDate(new Date());
-    System.out.println(pr.getProdDate());
+        for (ItemType it : ItemType.values()) {
+          System.out.println(it);
+        }
 
-    for (ItemType it : ItemType.values()) {
-      System.out.println(it);
-    }
+        //implement an interface without creating a class
+        MyInterface mii = new MyInterface() {
+          @Override
+          public void printIt(String text)
+    */
+    // issue 5
+    // Product productProduced = new Widget("iPod", "Apple", ItemType.AUDIO);
 
-    //implement an interface without creating a class
-    MyInterface mii = new MyInterface() {
-      @Override
-      public void printIt(String text)
-*/
-      //issue 5
-      //Product productProduced = new Widget("iPod", "Apple", ItemType.AUDIO);
+    // test constructor used when creating production records from user interface
+    // int numProduced = 3;  // this will come from the combobox in the UI
+    // int itemCount = 0;
 
-      // test constructor used when creating production records from user interface
-      //int numProduced = 3;  // this will come from the combobox in the UI
-      //int itemCount = 0;
-
-     //for(int productionRunProduct = 0; productionRunProduct < numProduced; productionRunProduct++) {
-       // ProductionRecord pr = new ProductionRecord(productProduced, itemCount++);
-        // using the iterator as the product id for testing
-        //System.out.println(pr.toString());
-      //}
-    };
+    // for(int productionRunProduct = 0; productionRunProduct < numProduced; productionRunProduct++)
+    // {
+    // ProductionRecord pr = new ProductionRecord(productProduced, itemCount++);
+    // using the iterator as the product id for testing
+    // System.out.println(pr.toString());
+    // }
   }
- /* public static void genericDemo() {
-    // Create arrays of Integer, Double and Character
-    Integer[] intArray = { 1, 2, 3, 4, 5 };
-    Double[] doubleArray = { 1.1, 2.2, 3.3, 4.4 };
-    Character[] charArray = { 'H', 'E', 'L', 'L', 'O' };
-
-    System.out.println("Array integerArray contains:");
-    printArray(intArray);   // pass an Integer array
-
-    System.out.println("\nArray doubleArray contains:");
-    printArray(doubleArray);   // pass a Double array
-
-    System.out.println("\nArray characterArray contains:");
-    printArray(charArray);   // pass a Character array
-  }
-
-  public static void printArray(Integer[] intArray){
-    System.out.println(Arrays.toString(intArray));
 
 }
-  public static void printArray(Double[] doubleArray){
-    System.out.println(Arrays.toString(doubleArray));
-  }
-  public static void printArray(Character[] charArray){
-    System.out.println(Arrays.toString(charArray));
+ /* public static void genericDemo() {
+     // Create arrays of Integer, Double and Character
+     Integer[] intArray = { 1, 2, 3, 4, 5 };
+     Double[] doubleArray = { 1.1, 2.2, 3.3, 4.4 };
+     Character[] charArray = { 'H', 'E', 'L', 'L', 'O' };
 
-  }*/
+     System.out.println("Array integerArray contains:");
+     printArray(intArray);   // pass an Integer array
 
+     System.out.println("\nArray doubleArray contains:");
+     printArray(doubleArray);   // pass a Double array
 
+     System.out.println("\nArray characterArray contains:");
+     printArray(charArray);   // pass a Character array
+   }
 
+   public static void printArray(Integer[] intArray){
+     System.out.println(Arrays.toString(intArray));
 
+ }
+   public static void printArray(Double[] doubleArray){
+     System.out.println(Arrays.toString(doubleArray));
+   }
+   public static void printArray(Character[] charArray){
+     System.out.println(Arrays.toString(charArray));
+
+   }*/
