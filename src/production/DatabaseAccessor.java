@@ -17,6 +17,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class DatabaseAccessor {
+  final static String jcbdDriver = "org.h2.Driver";
+  final static String dbUrl = "jdbc:h2:C:/Users/feesh/OneDrive/intelliJCOP/productionProject/res";
+  // login credentials to get into the database.
+  final static String user = "";
+  final static String pass = "";
+  // Initializing the connection and prepared statement for later use.
+ static Connection conn = null;
+ static Statement stmt = null;
 
   /**
    * METHOD NAME: insertProduct. PURPOSE: The purpose of this method is to establish a connection to
@@ -31,14 +39,6 @@ public class DatabaseAccessor {
      * arugment. The url can be found in the database properties. It is copied and pasted into the
      * string argument for url.
      */
-    final String jcbdDriver = "org.h2.Driver";
-    final String dbUrl = "jdbc:h2:C:/Users/feesh/OneDrive/intelliJCOP/productionProject/res";
-    // login credentials to get into the database.
-    final String user = "";
-    final String pass = "";
-    // Initializing the connection and prepared statement for later use.
-    Connection conn = null;
-    Statement stmt = null;
     String sType = W.getType().toString();
     try {
       Class.forName(jcbdDriver);
@@ -70,15 +70,6 @@ public class DatabaseAccessor {
    * called in the controller class, when the button populate table is pushed.
    */
   public static void displayProducts() {
-    // Because the method is static, the driver and URl need to be declared inside of the method.
-    final String jcbdDriver = "org.h2.Driver";
-    final String dbUrl = "jdbc:h2:C:/Users/feesh/OneDrive/intelliJCOP/productionProject/res";
-    // login credentials to get into the database.
-    final String user = "";
-    final String pass = "";
-    // Initializing the connection and prepared statement for later use.
-    Connection conn = null;
-    Statement stmt = null;
     try {
       Class.forName(jcbdDriver);
       conn = DriverManager.getConnection(dbUrl, user, pass);
@@ -110,15 +101,6 @@ public class DatabaseAccessor {
    * PURPOSE: This method will remove a selected item from the database.
    */
   public static void removeProduct(String name) {
-    // Because the method is static, the driver and URl need to be declared inside of the method.
-    final String jcbdDriver = "org.h2.Driver";
-    final String dbUrl = "jdbc:h2:C:/Users/feesh/OneDrive/intelliJCOP/productionProject/res";
-    // login credentials to get into the database.
-    final String user = "";
-    final String pass = "";
-    // Initializing the connection and prepared statement for later use.
-    Connection conn = null;
-    Statement stmt = null;
     try {
       Class.forName(jcbdDriver);
       conn = DriverManager.getConnection(dbUrl, user, pass);
@@ -140,16 +122,6 @@ public class DatabaseAccessor {
    * by the user.
    */
   public static void remove_productionLog(){
-      // Because the method is static, the driver and URl need to be declared inside of the method.
-      final String jcbdDriver = "org.h2.Driver";
-      final String dbUrl = "jdbc:h2:C:/Users/feesh/OneDrive/intelliJCOP/productionProject/res";
-      // login credentials to get into the database.
-      final String user = "";
-      final String pass = "";
-      // Initializing the connection and prepared statement for later use.
-      Connection conn = null;
-      Statement stmt = null;
-
     try {
       Class.forName(jcbdDriver);
       conn = DriverManager.getConnection(dbUrl, user, pass);
@@ -171,15 +143,6 @@ public class DatabaseAccessor {
    */
   public static ArrayList<AudioPlayer> getProductList(){
     ArrayList<AudioPlayer> arrayListProducts = new ArrayList<AudioPlayer>();
-    // Because the method is static, the driver and URl need to be declared inside of the method.
-    final String jcbdDriver = "org.h2.Driver";
-    final String dbUrl = "jdbc:h2:C:/Users/feesh/OneDrive/intelliJCOP/productionProject/res";
-    // login credentials to get into the database.
-    final String user = "";
-    final String pass = "";
-    // Initializing the connection and prepared statement for later use.
-    Connection conn = null;
-    Statement stmt = null;
     try{
       Class.forName(jcbdDriver);
       conn = DriverManager.getConnection(dbUrl, user, pass);
@@ -207,14 +170,6 @@ public class DatabaseAccessor {
    * @param pr
    */
     public static void add_production_record(ProductionRecord pr){
-      final String jcbdDriver = "org.h2.Driver";
-      final String dbUrl = "jdbc:h2:C:/Users/feesh/OneDrive/intelliJCOP/productionProject/res";
-      // login credentials to get into the database.
-      final String user = "";
-      final String pass = "";
-      // Initializing the connection and prepared statement for later use.
-      Connection conn = null;
-      Statement stmt = null;
       try {
         Class.forName(jcbdDriver);
         conn = DriverManager.getConnection(dbUrl, user, pass);

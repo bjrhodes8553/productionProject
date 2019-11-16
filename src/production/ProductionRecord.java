@@ -93,7 +93,7 @@ public class ProductionRecord {
     this.serialNumber = serialNumber;
   }
   public void setProdDate(Date dateProduced){
-    this.dateProduced = dateProduced;
+    this.dateProduced = new Date();
   }
 
 

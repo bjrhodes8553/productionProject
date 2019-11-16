@@ -10,7 +10,7 @@
 
 package production;
 
-public enum ItemType{
+ public enum ItemType{
   //The enums are declared, and have a String value stored in them.
   AUDIO("AU"),
   VISUAL("VI"),
