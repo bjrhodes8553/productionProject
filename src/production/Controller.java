@@ -33,7 +33,7 @@ public class Controller {
   // INITIALIZE DATABASE:
   // Declare the Driver and the URL in the Class so the methods can have access to it.
   final String jcbdDriver = "org.h2.Driver";
-  final String dbUrl = "jdbc:h2:C:/Users/feesh/OneDrive/intelliJCOP/productionProject/res";
+  final String dbUrl = "jdbc:h2:./res";
   // login credentials to get into the database.
   final String user = "";
   final String pass = "";
@@ -88,6 +88,7 @@ public class Controller {
    * This is also so that the box does not fill with the values over and over again.
    */
   public void initialize() {
+
 
     // If/else statement to populate the choicebox for itemtype.
     if (choicebType.getItems().isEmpty()) {

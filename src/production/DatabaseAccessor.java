@@ -19,7 +19,8 @@ import java.util.ArrayList;
 
 public class DatabaseAccessor {
   static final String jcbdDriver = "org.h2.Driver";
-  static final String dbUrl = "jdbc:h2:C:/Users/feesh/OneDrive/intelliJCOP/productionProject/res";
+  static final String dbUrl = "jdbc:h2:./res";
+
   // login credentials to get into the database.
   static final String user = "";
   static final String pass = "";
