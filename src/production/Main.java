@@ -1,6 +1,9 @@
 package production;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Properties;
 import java.util.Scanner;
 import javafx.application.Application;
 import javafx.event.Event;
@@ -29,6 +32,18 @@ public class Main extends Application {
   /** Launches the application. */
   public static void main(String[] args) {
     launch(args);
+
+//Password encryption using property files.
+    try (OutputStream output =
+        new FileOutputStream(
+            "C:.\\properties")) {
+      Properties prop = new Properties();
+      prop.getProperty("password");
+      prop.store(output, null);
+    }catch (IOException io){
+      io.printStackTrace();
+    }
+
 
     // Issue 8
 
