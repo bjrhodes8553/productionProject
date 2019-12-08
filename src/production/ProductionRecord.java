@@ -1,5 +1,6 @@
 package production;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /*
@@ -92,7 +93,12 @@ public class ProductionRecord {
     this.name = name;
     this.productID = productID;
     this.serialNumber = serialNumber;
-    this.date = new Date();
+    this.date = date;
+  }
+  ProductionRecord(int productID, String serialNumber, Date date) {
+    this.productID = productID;
+    this.serialNumber = serialNumber;
+    this.date = date;
   }
 
   // Getter Methods:

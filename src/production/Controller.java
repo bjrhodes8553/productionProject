@@ -49,6 +49,8 @@ public class Controller {
    */
   @FXML private Button btnAddProduct;
 
+  @FXML private Button btnEmployee;
+
   @FXML private Button btnRemove;
 
   @FXML private Button btnRemoveLog;
@@ -89,6 +91,15 @@ public class Controller {
    */
   public void initialize() {
 
+    populate_ProductionTextView();
+
+
+    //Properties prop = new Properties();
+    //prop.load(new FileInputStream("res/properties"));
+    //String PASS = prop.getProperty("password");
+
+
+
 
     // If/else statement to populate the choicebox for itemtype.
     if (choicebType.getItems().isEmpty()) {
@@ -101,10 +112,9 @@ public class Controller {
 
     // Similar statement is made to populate the combobox.
     if (comboQuantity.getItems().isEmpty()) {
-      // If there are no values in the combobox, it will generate items in the combobox.
-      comboQuantity
-          .getItems()
-          .addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20);
+      for (int i = 0; i<101; i++)
+      // If there are no values in the combobox, it will generate items in the combobox via for-loop
+      comboQuantity.getItems().addAll(i);
     } else {
       // If the combobox already contains the items, then it will just print a blank statement.
       System.out.println(" ");
@@ -279,24 +289,25 @@ public class Controller {
        closed using a similar function, conn.close().
       */
       while (rs.next()) {
+        int productID = rs.getInt("ID");
         String productName = rs.getString("NAME");
         String productManu = rs.getString("MANUFACTURER");
         String productType = rs.getString("TYPE");
         // Get the value from the comboBox, and store in variable quantity.
         int quantity = comboQuantity.getValue();
+
         // For loop to create as many items in ProductionRecord as the quantity selected.
         for (int i = 1; i < quantity + 1; i++) {
           // Create a ProductionRecord object that is set to the value by user.
           ProductionRecord addProduction =
-              new ProductionRecord(1, i, productManu.substring(0, 3) + "0000" + i, new Date());
+              new ProductionRecord(0, i, productManu.substring(0, 3) + productType.substring(0,2) + "0000" + i,
+                  new Date());
+          ProductionRecord displayProd = new ProductionRecord(prodName, i, productManu.substring(0, 3) + productType.substring(0,2) + "0000" + i, new Date());
+          textAreaProductLog.appendText(displayProd.toStringWithName());
+
           // Call the add_production_record method from the DatabaseAccessor class.
           DatabaseAccessor.add_production_record(addProduction);
-          // Create another object that will display the RecordProduction.
-          ProductionRecord displayProduction =
-              new ProductionRecord(
-                  productName, i, productManu.substring(0, 3) + "0000" + i, new Date());
-          // The textarea will display the product name, ProductID, serial number and dateProduced.
-          textAreaProductLog.appendText(displayProduction.toStringWithName());
+
         } // End of for.
       } // End of while.
       // Close the connection
@@ -306,6 +317,44 @@ public class Controller {
       e.printStackTrace();
     } // End of catch.
   } // End of add_productlog method.
+
+  public void populate_ProductionTextView(){
+    try {
+      Class.forName(jcbdDriver);
+      conn = DriverManager.getConnection(dbUrl, user, pass);
+      stmt = conn.createStatement();
+      String sql = "SELECT * FROM PRODUCT";
+      ResultSet rs = stmt.executeQuery(sql);
+      /*
+       A while loop is made to display the information line by line in an organized manner. After
+       the data is displayed, the query is closed using stmt.close(). The connection is also
+       closed using a similar function, conn.close().
+      */
+      while (rs.next()) {
+        int productNum = rs.getInt("ID");
+        String productName = rs.getString("NAME");
+        String productManu = rs.getString("MANUFACTURER");
+        String productType = rs.getString("TYPE");
+
+      // textAreaProductLog.appendText("Product Name: "+productName+"Serial: "+DatabaseAccessor.getProductionRecord().getSerialNum()+
+        // "Date Produced: "+DatabaseAccessor.getProductionRecord().getProdDate());
+
+        // Create another object that will display the RecordProduction.
+
+        //  ProductionRecord displayProduction = new ProductionRecord(DatabaseAccessor.getProductionRecord());
+
+          // The textarea will display the product name, ProductID, serial number and dateProduced.
+          //textAreaProductLog.appendText(displayProduction.toString());
+        //displayProduction.toStringWithName();
+        }
+
+      // Close the connection
+      stmt.close();
+      conn.close();
+    } catch (ClassNotFoundException | SQLException e) {
+      e.printStackTrace();
+    } // End of catch.
+  }
 
   /**
    * METHOD NAME: display_products. PURPOSE: This method is going to call the DatabaseAccessor's
@@ -394,5 +443,10 @@ public class Controller {
             + "\nType: "
             + type_string);
     clear_textfields();
+  }
+
+  @FXML
+  public void goEmployee(MouseEvent event){
+    Main.createEmployeeScene(event, "Employee.fxml");
   }
 }

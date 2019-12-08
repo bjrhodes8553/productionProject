@@ -27,7 +27,7 @@
 
 <GridPane alignment="CENTER" styleClass="parent-grid-pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="production.Controller">
   <stylesheets>
-    <String fx:value="/production/productStyle.css" />
+    <String fx:value="/production/ProductionScreen.css" />
   </stylesheets>
 
   <columnConstraints>
@@ -45,7 +45,7 @@
   <cursor>
     <Cursor fx:constant="OPEN_HAND" />
   </cursor>
-  <TabPane blendMode="COLOR_BURN" prefHeight="520.0" prefWidth="998.0" side="LEFT" stylesheets="@productStyle.css" tabClosingPolicy="UNAVAILABLE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+  <TabPane blendMode="COLOR_BURN" prefHeight="520.0" prefWidth="998.0" side="LEFT" stylesheets="@ProductionScreen.css" tabClosingPolicy="UNAVAILABLE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
     <tabs>
       <Tab styleClass="product-tab" text="Product Line">
         <content>
@@ -80,7 +80,7 @@
                       <TextField fx:id="txtFieldProduct" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
                       <TextField fx:id="txtFieldManufacturer" prefHeight="26.0" prefWidth="218.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS" />
                       <!--suppress JavaFxUnresolvedStyleClassReference -->
-                      <ChoiceBox fx:id="choicebType" prefHeight="26.0" prefWidth="198.0" styleClass="type-choice-box" stylesheets="@productStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                      <ChoiceBox fx:id="choicebType" prefHeight="26.0" prefWidth="198.0" styleClass="type-choice-box" stylesheets="@ProductionScreen.css" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                       <Label text="Type:" GridPane.rowIndex="6">
                                     <font>
                                        <Font size="17.0" />
@@ -92,7 +92,7 @@
                     </padding>
                   </GridPane>
                   <!--suppress JavaFxUnresolvedStyleClassReference -->
-                  <Button fx:id="btnAddProduct" layoutX="141.0" layoutY="155.0" mnemonicParsing="false" onMouseClicked="#add_product" styleClass="add-product-button" stylesheets="@productStyle.css" text="Add Product" textFill="#392085" translateY="10.0" />
+                  <Button fx:id="btnAddProduct" layoutX="141.0" layoutY="155.0" mnemonicParsing="false" onMouseClicked="#add_product" styleClass="add-product-button" stylesheets="@ProductionScreen.css" text="Add Product" textFill="#392085" translateY="10.0" />
                   <TableView fx:id="tableViewProduct" cache="true" cacheHint="SCALE" layoutX="23.0" layoutY="195.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="278.0" prefWidth="611.0" translateY="14.0">
                     <columns>
                       <TableColumn fx:id="tableColViewName" prefWidth="200.79999923706055" text="Name" />
@@ -107,6 +107,7 @@
                                  <Image url="@images/production_logo.png" />
                               </image>
                            </ImageView>
+                           <Button fx:id="btnEmployee" layoutX="585.0" layoutY="22.0" mnemonicParsing="false" onMouseClicked="#goEmployee" text="Employee Page" textFill="#f51414" />
                 </children>
                 <padding>
                   <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
@@ -122,17 +123,17 @@
             <children>
               <AnchorPane layoutY="-1.0" prefHeight="520.0" prefWidth="644.0">
                 <children>
-                  <Label layoutX="163.0" layoutY="36.0" styleClass="product-label" stylesheets="@productStyle.css" text="Choose Product:">
+                  <Label layoutX="163.0" layoutY="36.0" styleClass="product-label" stylesheets="@ProductionScreen.css" text="Choose Product:">
                               <font>
                                  <Font size="17.0" />
                               </font></Label>
                   <ListView fx:id="listViewEProducts" layoutX="134.0" layoutY="65.0" prefHeight="406.0" prefWidth="182.0" />
-                  <Label layoutX="381.0" layoutY="36.0" styleClass="quantity-label" stylesheets="@productStyle.css" text="Choose Quantity:">
+                  <Label layoutX="381.0" layoutY="36.0" styleClass="quantity-label" stylesheets="@ProductionScreen.css" text="Choose Quantity:">
                               <font>
                                  <Font size="17.0" />
                               </font></Label>
-                  <ComboBox id="quantityChoice" fx:id="comboQuantity" layoutX="390.0" layoutY="65.0" prefHeight="18.0" prefWidth="112.0" styleClass="choice-box" stylesheets="@productStyle.css" />
-                  <Button fx:id="btnRecordProduct" layoutX="372.0" layoutY="114.0" mnemonicParsing="false" onMouseClicked="#record_production" prefHeight="34.0" prefWidth="146.0" stylesheets="@productStyle.css" text="Record Production">
+                  <ComboBox id="quantityChoice" fx:id="comboQuantity" layoutX="390.0" layoutY="65.0" prefHeight="18.0" prefWidth="112.0" styleClass="choice-box" stylesheets="@ProductionScreen.css" />
+                  <Button fx:id="btnRecordProduct" layoutX="372.0" layoutY="114.0" mnemonicParsing="false" onMouseClicked="#record_production" prefHeight="34.0" prefWidth="146.0" stylesheets="@ProductionScreen.css" text="Record Production">
                     <effect>
                       <DropShadow color="#fff764" />
                     </effect>
@@ -150,12 +151,12 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="517.0" prefWidth="649.0">
             <children>
-              <TextArea fx:id="textAreaProductLog" layoutX="35.0" layoutY="47.0" prefColumnCount="7" prefHeight="414.0" prefWidth="676.0" wrapText="true" />
-              <Label layoutX="243.0" layoutY="14.0" styleClass="log-label" stylesheets="@productStyle.css" text="Production Log:">
+              <TextArea fx:id="textAreaProductLog" layoutX="43.0" layoutY="52.0" prefColumnCount="7" prefHeight="414.0" prefWidth="775.0" wrapText="true" />
+              <Label layoutX="297.0" layoutY="14.0" styleClass="log-label" stylesheets="@ProductionScreen.css" text="Production Log:">
                         <font>
                            <Font name="System Bold" size="24.0" />
                         </font></Label>
-                     <Button fx:id="btnRemoveLog" layoutX="324.0" layoutY="473.0" mnemonicParsing="false" onMouseClicked="#remove_productionLog" text="CLEAR LOG" textFill="#e53535">
+                     <Button fx:id="btnRemoveLog" layoutX="340.0" layoutY="473.0" mnemonicParsing="false" onMouseClicked="#remove_productionLog" text="CLEAR LOG" textFill="#e53535">
                         <font>
                            <Font name="System Bold" size="14.0" />
                         </font>

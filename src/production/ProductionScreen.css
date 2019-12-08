@@ -4,6 +4,12 @@
   -fx-border-color: darkgray;
 }
 
+.button {
+  -fx-text-fill: #121212;
+  -fx-font-size: 13px;
+  -fx-font-weight: bold;
+}
+
 /*noinspection ALL*/
 .tab-pane .headers-region {
   -fx-padding: 5px;

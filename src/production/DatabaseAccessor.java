@@ -10,12 +10,18 @@ package production;
  * **********************************************************
  */
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Properties;
 
 public class DatabaseAccessor {
   static final String jcbdDriver = "org.h2.Driver";
@@ -23,10 +29,18 @@ public class DatabaseAccessor {
 
   // login credentials to get into the database.
   static final String user = "";
-  static final String pass = "";
+  static String pass = "";
   // Initializing the connection and prepared statement for later use.
   static Connection conn = null;
   static Statement stmt = null;
+  static Widget wid;
+
+  static int productID;
+  static ProductionRecord proRec;
+ static String productName;
+ static String productManu;
+ static String productType;
+
 
   /**
    * METHOD NAME: insertProduct. PURPOSE: The purpose of this method is to establish a connection to
@@ -43,6 +57,12 @@ public class DatabaseAccessor {
      */
     String stringType = widgetProduct.getType().toString();
     try {
+      //Properties prop = new Properties();
+      //prop.load(new FileInputStream("res/properties"));
+      //pass = prop.getProperty("password");
+
+
+
       Class.forName(jcbdDriver);
       conn = DriverManager.getConnection(dbUrl, user, pass);
       // Parametrized variables being inserted into the database, that are called in the header.
@@ -96,6 +116,81 @@ public class DatabaseAccessor {
       e.printStackTrace();
     } // End of catch.
   } // End of displayProduct method.
+
+
+  public static Widget getProduct(int productID) {
+
+    try {
+      Class.forName(jcbdDriver);
+      conn = DriverManager.getConnection(dbUrl, user, pass);
+      stmt = conn.createStatement();
+      String sql = "SELECT * FROM PRODUCT WHERE ID = "+productID+ ";";
+      ResultSet rs = stmt.executeQuery(sql);
+      /*
+       A while loop is made to display the information line by line in an organized manner. After
+       the data is displayed, the query is closed using stmt.close(). The connection is also
+       closed using a similar function, conn.close().
+      */
+      while (rs.next()) {
+        String productName = rs.getString("NAME");
+        String productManu = rs.getString("MANUFACTURER");
+        String productType = rs.getString("TYPE");
+
+        ItemType type;
+        switch(productType){
+          case "AUDIO":
+            type = ItemType.AUDIO;
+            break;
+          case "VISUAL":
+            type = ItemType.VISUAL;
+            break;
+          case "AUDIO_MOBILE":
+            type = ItemType.AUDIO_MOBILE;
+            break;
+          default:
+            type = ItemType.VISUAL_MOBILE;
+        }
+        Widget wid = new Widget(productName, productManu, type);
+      }
+
+
+      // Close the connection
+      stmt.close();
+      conn.close();
+    } catch (ClassNotFoundException | SQLException e) {
+      e.printStackTrace();
+    } // End of catch.
+    return wid;
+  } // End of displayProduct method.
+
+
+  public static ProductionRecord getProductionRecord(int ID) {
+
+    try {
+      Class.forName(jcbdDriver);
+      conn = DriverManager.getConnection(dbUrl, user, pass);
+      stmt = conn.createStatement();
+      String sql = "SELECT * FROM PRODUCTIONRECORD";
+      ResultSet rs = stmt.executeQuery(sql);
+      /*
+       A while loop is made to display the information line by line in an organized manner. After
+       the data is displayed, the query is closed using stmt.close(). The connection is also
+       closed using a similar function, conn.close().
+      */
+      while (rs.next()) {
+        int productNum = rs.getInt("PRODUCTION_NUM");
+        String serialNum = rs.getString("SERIAL_NUM");
+        String dateProduced = rs.getString("DATE_PRODUCED");
+        ProductionRecord proRec = new ProductionRecord(productNum, ID, serialNum,new Date(dateProduced));}
+      // Close the connection
+      stmt.close();
+      conn.close();
+    } catch (ClassNotFoundException | SQLException e) {
+      e.printStackTrace();
+    } // End of catch.
+    return proRec;
+}
+// End of displayProduct method.
 
   /**
    * METHOD NAME: removeProduct
@@ -183,7 +278,7 @@ public class DatabaseAccessor {
               + "','"
               + pr.getSerialNum()
               + "','"
-              + pr.getProdDate().getTime()
+              + pr.getProdDate().toString()
               + "');";
 
       // Executes the prepared statement.

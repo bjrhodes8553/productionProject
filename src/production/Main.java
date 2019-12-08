@@ -1,7 +1,11 @@
 package production;
 
+import java.io.IOException;
+import java.util.Scanner;
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -18,13 +22,67 @@ public class Main extends Application {
   public void start(Stage primaryStage) throws Exception {
     Parent root = FXMLLoader.load(getClass().getResource("ProductionScreen.fxml"));
     primaryStage.setTitle("Production Task: ");
-    primaryStage.setScene(new Scene(root, 800, 600));
+    primaryStage.setScene(new Scene(root, 900, 600));
     primaryStage.show();
+
+
   }
 
   /** Launches the application. */
   public static void main(String[] args) {
     launch(args);
+
+
+
+
+
+    //Issue 8
+
+   /*
+    Scanner scan = new Scanner(System.in);
+    System.out.println("Enter Employee Name (first last)");
+    String name = scan.nextLine();
+    System.out.println("Enter Employee password");
+    String password = scan.nextLine();
+    Employee employee = new Employee(name, password);
+    System.out.println(employee);
+
+    */
+
+
+  }
+  public static void createEmployeeScene(Event event, String newFileFXML) {
+    Parent newRoot = null;
+    try {
+     newRoot = FXMLLoader.load(Main.class.getResource(newFileFXML));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    Scene newScene = new Scene(newRoot);
+    String cssStyle = newFileFXML+".css";
+    newScene.getStylesheets().add(Main.class.getResource("Employee.css").toExternalForm());
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    window.setScene(newScene);
+    window.show();
+
+  }
+
+  public static void createProductionScene(Event event, String newFileFXML) {
+    Parent newRoot = null;
+    try {
+      newRoot = FXMLLoader.load(Main.class.getResource(newFileFXML));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    Scene newScene = new Scene(newRoot);
+    String cssStyle = newFileFXML+".css";
+    newScene.getStylesheets().add(Main.class.getResource("ProductionScreen.css").toExternalForm());
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    window.setScene(newScene);
+    window.show();
+
+  }
+
 
     // Screen newScreen = new Screen("720x480", 40, 22);
     // String testS = newScreen.toString();
@@ -80,7 +138,7 @@ public class Main extends Application {
     // }
   }
 
-}
+
  /* public static void genericDemo() {
      // Create arrays of Integer, Double and Character
      Integer[] intArray = { 1, 2, 3, 4, 5 };
