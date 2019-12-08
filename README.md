@@ -15,6 +15,22 @@ The buttons, text fields, list views, etc have all been given functions to manip
 5. **Week 5:** All manipulations of the database are entered into the controller class, button adds to database.
 - [x] First Sprint
 
+## The Second Sprint:
+1. **Week 6:** Add an Enum to your project, as well an interface and abstract class.
+2. **Week 7:** Use inheritance in project.
+3. **Week 8:** Use polymorphism in project.
+4. **Week 9:** Use polymorphism and incorporate it into a gif.
+5. **Week 10:** Enhance products using encapsulation.
+6. **Week 11:** Populate tableview using ArrayList and observable list.
+- [x] Second Sprint
+
+## The Third Sprint:
+1. **Week 12:** Add a lambda expression to project and put h2 jar file into project file.
+2. **Week 13:** Set a database password and read it from a file.
+3. **Week 14:** Use recursive methods to assure safety of password.
+4. **Week 15:** Quality review and deployment.
+- [x] Third Sprint
+
 
 
 ## Software
