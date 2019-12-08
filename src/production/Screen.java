@@ -34,11 +34,9 @@ public class Screen implements ScreenSpec {
   }
 
   /**
-   * METHOD NAME: toString
-   * PURPOSE: This method takes the information from the creation of a screen object
-   * and puts it into a string.
+   * METHOD NAME: toString PURPOSE: This method takes the information from the creation of a screen
+   * object and puts it into a string.
    */
-
   public String toString() {
     return ("\nScreen:"
         + "\nResolution: "

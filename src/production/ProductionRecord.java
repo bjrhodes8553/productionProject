@@ -12,8 +12,6 @@ import java.util.Date;
  * **********************************************************
  */
 
-
-
 public class ProductionRecord {
   // Initialize the variables used in this class.
   int productionNumber;
@@ -24,8 +22,8 @@ public class ProductionRecord {
   Date date;
 
   /**
-   * METHOD NAME: productProduced
-   * PURPOSE:This constructor for the ProductionRecord call that takes two arguments.
+   * METHOD NAME: productProduced PURPOSE:This constructor for the ProductionRecord call that takes
+   * two arguments.
    */
   public ProductionRecord(Product productProduced, int i) {
     dateProduced = new Date();
@@ -53,10 +51,7 @@ public class ProductionRecord {
     this.dateProduced = dateProduced;
   }
 
-  /**
-   * METHOD NAME: toString
-   * PURPOSE: This method cast the data into a string.
-   */
+  /** METHOD NAME: toString PURPOSE: This method cast the data into a string. */
   public String toString() {
     return "\nProd. Num: "
         + this.productionNumber
@@ -71,10 +66,7 @@ public class ProductionRecord {
         + this.dateProduced;
   }
 
-  /**
-   * METHOD NAME: toStringWithName
-   * PURPOSE: This method cast the data into a string.
-   */
+  /** METHOD NAME: toStringWithName PURPOSE: This method cast the data into a string. */
   public String toStringWithName() {
     return "\nProd Name: "
         + this.name
@@ -95,6 +87,7 @@ public class ProductionRecord {
     this.serialNumber = serialNumber;
     this.date = date;
   }
+
   ProductionRecord(int productID, String serialNumber, Date date) {
     this.productID = productID;
     this.serialNumber = serialNumber;

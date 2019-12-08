@@ -24,21 +24,15 @@ public class Main extends Application {
     primaryStage.setTitle("Production Task: ");
     primaryStage.setScene(new Scene(root, 900, 600));
     primaryStage.show();
-
-
   }
 
   /** Launches the application. */
   public static void main(String[] args) {
     launch(args);
 
+    // Issue 8
 
-
-
-
-    //Issue 8
-
-   /*
+    /*
     Scanner scan = new Scanner(System.in);
     System.out.println("Enter Employee Name (first last)");
     String name = scan.nextLine();
@@ -49,22 +43,20 @@ public class Main extends Application {
 
     */
 
-
   }
+
   public static void createEmployeeScene(Event event, String newFileFXML) {
     Parent newRoot = null;
     try {
-     newRoot = FXMLLoader.load(Main.class.getResource(newFileFXML));
+      newRoot = FXMLLoader.load(Main.class.getResource(newFileFXML));
     } catch (IOException e) {
       e.printStackTrace();
     }
     Scene newScene = new Scene(newRoot);
-    String cssStyle = newFileFXML+".css";
     newScene.getStylesheets().add(Main.class.getResource("Employee.css").toExternalForm());
     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
     window.setScene(newScene);
     window.show();
-
   }
 
   public static void createProductionScene(Event event, String newFileFXML) {
@@ -75,69 +67,65 @@ public class Main extends Application {
       e.printStackTrace();
     }
     Scene newScene = new Scene(newRoot);
-    String cssStyle = newFileFXML+".css";
     newScene.getStylesheets().add(Main.class.getResource("ProductionScreen.css").toExternalForm());
     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
     window.setScene(newScene);
     window.show();
-
   }
 
+  // Screen newScreen = new Screen("720x480", 40, 22);
+  // String testS = newScreen.toString();
+  // System.out.println(testS);
 
-    // Screen newScreen = new Screen("720x480", 40, 22);
-    // String testS = newScreen.toString();
-    // System.out.println(testS);
+  // test constructor used when creating production records from user interface
+  // Integer numProduced = 3; // this will come from the combobox in the UI
 
-    // test constructor used when creating production records from user interface
-    // Integer numProduced = 3; // this will come from the combobox in the UI
+  /* //issue 4
+  for (int productionRunProduct = 0; productionRunProduct < numProduced; productionRunProduct++) {
+         ProductionRecord pr = new ProductionRecord(0);
+         System.out.println(pr.toString());
+       }
 
-    /* //issue 4
-   for (int productionRunProduct = 0; productionRunProduct < numProduced; productionRunProduct++) {
-          ProductionRecord pr = new ProductionRecord(0);
-          System.out.println(pr.toString());
-        }
+       // test constructor used when creating production records from reading database
+       ProductionRecord pr = new ProductionRecord(0, 3, "1", new Date());
+       System.out.println(pr.toString());
 
-        // test constructor used when creating production records from reading database
-        ProductionRecord pr = new ProductionRecord(0, 3, "1", new Date());
-        System.out.println(pr.toString());
+       // testing accessors and mutators
+       pr.setProductionNum(1);
+       System.out.println(pr.getProductionNum());
 
-        // testing accessors and mutators
-        pr.setProductionNum(1);
-        System.out.println(pr.getProductionNum());
+       pr.setProductID(4);
+       System.out.println(pr.getProductID());
 
-        pr.setProductID(4);
-        System.out.println(pr.getProductID());
+       pr.setSerialNum("2");
+       System.out.println(pr.getSerialNum());
 
-        pr.setSerialNum("2");
-        System.out.println(pr.getSerialNum());
+       pr.setProdDate(new Date());
+       System.out.println(pr.getProdDate());
 
-        pr.setProdDate(new Date());
-        System.out.println(pr.getProdDate());
+       for (ItemType it : ItemType.values()) {
+         System.out.println(it);
+       }
 
-        for (ItemType it : ItemType.values()) {
-          System.out.println(it);
-        }
+       //implement an interface without creating a class
+       MyInterface mii = new MyInterface() {
+         @Override
+         public void printIt(String text)
+   */
+  // issue 5
+  // Product productProduced = new Widget("iPod", "Apple", ItemType.AUDIO);
 
-        //implement an interface without creating a class
-        MyInterface mii = new MyInterface() {
-          @Override
-          public void printIt(String text)
-    */
-    // issue 5
-    // Product productProduced = new Widget("iPod", "Apple", ItemType.AUDIO);
+  // test constructor used when creating production records from user interface
+  // int numProduced = 3;  // this will come from the combobox in the UI
+  // int itemCount = 0;
 
-    // test constructor used when creating production records from user interface
-    // int numProduced = 3;  // this will come from the combobox in the UI
-    // int itemCount = 0;
-
-    // for(int productionRunProduct = 0; productionRunProduct < numProduced; productionRunProduct++)
-    // {
-    // ProductionRecord pr = new ProductionRecord(productProduced, itemCount++);
-    // using the iterator as the product id for testing
-    // System.out.println(pr.toString());
-    // }
-  }
-
+  // for(int productionRunProduct = 0; productionRunProduct < numProduced; productionRunProduct++)
+  // {
+  // ProductionRecord pr = new ProductionRecord(productProduced, itemCount++);
+  // using the iterator as the product id for testing
+  // System.out.println(pr.toString());
+  // }
+}
 
  /* public static void genericDemo() {
      // Create arrays of Integer, Double and Character

@@ -3,13 +3,13 @@ package production;
 /**
  * *********************************************************
  * File : AudioPlayer.Java
- * Author: Breanna Rhodes
+ * Author: Breanna
+ * Rhodes
  * Class : COP 3003
  * Purpose : This class extends the abstract class, Product, and implements
  * the interface MultimediaControl.
  * **********************************************************
  */
-
 public class AudioPlayer extends Product implements MultimediaControl {
   // Variables that will be used in this class are declared.
   String supportedAudioFormats;
@@ -70,9 +70,8 @@ public class AudioPlayer extends Product implements MultimediaControl {
   }
 
   /**
-   * METHOD NAME: toString
-   * PURPOSE: The purpose of this method is to take audio player object and print the
-   * details of it to a string.
+   * METHOD NAME: toString PURPOSE: The purpose of this method is to take audio player object and
+   * print the details of it to a string.
    */
   public String toString() {
     System.out.print(super.toString());

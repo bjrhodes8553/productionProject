@@ -37,10 +37,9 @@ public class DatabaseAccessor {
 
   static int productID;
   static ProductionRecord proRec;
- static String productName;
- static String productManu;
- static String productType;
-
+  static String productName;
+  static String productManu;
+  static String productType;
 
   /**
    * METHOD NAME: insertProduct. PURPOSE: The purpose of this method is to establish a connection to
@@ -57,11 +56,9 @@ public class DatabaseAccessor {
      */
     String stringType = widgetProduct.getType().toString();
     try {
-      //Properties prop = new Properties();
-      //prop.load(new FileInputStream("res/properties"));
-      //pass = prop.getProperty("password");
-
-
+      // Properties prop = new Properties();
+      // prop.load(new FileInputStream("res/properties"));
+      // pass = prop.getProperty("password");
 
       Class.forName(jcbdDriver);
       conn = DriverManager.getConnection(dbUrl, user, pass);
@@ -105,8 +102,6 @@ public class DatabaseAccessor {
        closed using a similar function, conn.close().
       */
       while (rs.next()) {
-        String productName = rs.getString("NAME");
-        String productManu = rs.getString("MANUFACTURER");
         String productType = rs.getString("TYPE");
       }
       // Close the connection
@@ -117,14 +112,13 @@ public class DatabaseAccessor {
     } // End of catch.
   } // End of displayProduct method.
 
-
   public static Widget getProduct(int productID) {
 
     try {
       Class.forName(jcbdDriver);
       conn = DriverManager.getConnection(dbUrl, user, pass);
       stmt = conn.createStatement();
-      String sql = "SELECT * FROM PRODUCT WHERE ID = "+productID+ ";";
+      String sql = "SELECT * FROM PRODUCT WHERE ID = " + productID + ";";
       ResultSet rs = stmt.executeQuery(sql);
       /*
        A while loop is made to display the information line by line in an organized manner. After
@@ -137,7 +131,7 @@ public class DatabaseAccessor {
         String productType = rs.getString("TYPE");
 
         ItemType type;
-        switch(productType){
+        switch (productType) {
           case "AUDIO":
             type = ItemType.AUDIO;
             break;
@@ -153,7 +147,6 @@ public class DatabaseAccessor {
         Widget wid = new Widget(productName, productManu, type);
       }
 
-
       // Close the connection
       stmt.close();
       conn.close();
@@ -162,7 +155,6 @@ public class DatabaseAccessor {
     } // End of catch.
     return wid;
   } // End of displayProduct method.
-
 
   public static ProductionRecord getProductionRecord(int ID) {
 
@@ -181,7 +173,9 @@ public class DatabaseAccessor {
         int productNum = rs.getInt("PRODUCTION_NUM");
         String serialNum = rs.getString("SERIAL_NUM");
         String dateProduced = rs.getString("DATE_PRODUCED");
-        ProductionRecord proRec = new ProductionRecord(productNum, ID, serialNum,new Date(dateProduced));}
+        ProductionRecord proRec =
+            new ProductionRecord(productNum, ID, serialNum, new Date(dateProduced));
+      }
       // Close the connection
       stmt.close();
       conn.close();
@@ -189,12 +183,11 @@ public class DatabaseAccessor {
       e.printStackTrace();
     } // End of catch.
     return proRec;
-}
-// End of displayProduct method.
+  }
+  // End of displayProduct method.
 
   /**
-   * METHOD NAME: removeProduct
-   * PURPOSE: This method will remove a selected item from the database.
+   * METHOD NAME: removeProduct PURPOSE: This method will remove a selected item from the database.
    */
   public static void removeProduct(String name) {
     try {
@@ -261,7 +254,6 @@ public class DatabaseAccessor {
   /**
    * METHOD NAME: add_production_record PURPOSE: This purpose of this method is to connect to the
    * database, take in the product as an argument and add it to the PRODUCTIONRECORD database.
-   *
    */
   public static void add_production_record(ProductionRecord pr) {
     try {

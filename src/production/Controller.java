@@ -82,8 +82,7 @@ public class Controller {
   // METHODS:
 
   /**
-   * METHOD NAME: Initalize
-   * PURPOSE: This method will fill the choice box with the enum values from
+   * METHOD NAME: Initalize PURPOSE: This method will fill the choice box with the enum values from
    * ItemType. The if/else statement will iterate through the values of the enum and store them into
    * the choice box. The statement also checks to box to see if it is currently empty. If it is
    * empty, it will fill the choice box, if it is not empty, then it will display the choice box.
@@ -93,13 +92,9 @@ public class Controller {
 
     populate_ProductionTextView();
 
-
-    //Properties prop = new Properties();
-    //prop.load(new FileInputStream("res/properties"));
-    //String PASS = prop.getProperty("password");
-
-
-
+    // Properties prop = new Properties();
+    // prop.load(new FileInputStream("res/properties"));
+    // String PASS = prop.getProperty("password");
 
     // If/else statement to populate the choicebox for itemtype.
     if (choicebType.getItems().isEmpty()) {
@@ -112,9 +107,10 @@ public class Controller {
 
     // Similar statement is made to populate the combobox.
     if (comboQuantity.getItems().isEmpty()) {
-      for (int i = 0; i<101; i++)
-      // If there are no values in the combobox, it will generate items in the combobox via for-loop
-      comboQuantity.getItems().addAll(i);
+      for (int i = 0; i < 101; i++)
+        // If there are no values in the combobox, it will generate items in the combobox via
+        // for-loop
+        comboQuantity.getItems().addAll(i);
     } else {
       // If the combobox already contains the items, then it will just print a blank statement.
       System.out.println(" ");
@@ -126,9 +122,9 @@ public class Controller {
   } // End of intialize method.
 
   /**
-   * METHOD NAME: populate_tableview()
-   * PURPOSE: The purpose of this method is to populate the tableview on the first tab the user
-   * comes across. The tableview is generated from the items in the database.
+   * METHOD NAME: populate_tableview() PURPOSE: The purpose of this method is to populate the
+   * tableview on the first tab the user comes across. The tableview is generated from the items in
+   * the database.
    */
   public void populate_tableview() {
     // Set the cell value factory for the columns of the tableview.
@@ -191,10 +187,7 @@ public class Controller {
     } // End of catch.
   } // End of populate_tableview.
 
-  /**
-   *  METHOD NAME: testMultimedia()
-   * PURPOSE: Demonstrates functionality in the user interface.
-   */
+  /** METHOD NAME: testMultimedia() PURPOSE: Demonstrates functionality in the user interface. */
   public static void testMultimedia() {
     AudioPlayer newAudioProduct =
         new AudioPlayer(
@@ -215,10 +208,8 @@ public class Controller {
   }
 
   /**
-   * METHOD NAME: recordProduction
-   * Purpose: This method will connect to the database and select the
-   * column name column and store the values in the name column into the
-   * record production listview.
+   * METHOD NAME: recordProduction Purpose: This method will connect to the database and select the
+   * column name column and store the values in the name column into the record production listview.
    */
   public void getName() {
 
@@ -300,14 +291,21 @@ public class Controller {
         for (int i = 1; i < quantity + 1; i++) {
           // Create a ProductionRecord object that is set to the value by user.
           ProductionRecord addProduction =
-              new ProductionRecord(0, i, productManu.substring(0, 3) + productType.substring(0,2) + "0000" + i,
+              new ProductionRecord(
+                  0,
+                  i,
+                  productManu.substring(0, 3) + productType.substring(0, 2) + "0000" + i,
                   new Date());
-          ProductionRecord displayProd = new ProductionRecord(prodName, i, productManu.substring(0, 3) + productType.substring(0,2) + "0000" + i, new Date());
+          ProductionRecord displayProd =
+              new ProductionRecord(
+                  prodName,
+                  i,
+                  productManu.substring(0, 3) + productType.substring(0, 2) + "0000" + i,
+                  new Date());
           textAreaProductLog.appendText(displayProd.toStringWithName());
 
           // Call the add_production_record method from the DatabaseAccessor class.
           DatabaseAccessor.add_production_record(addProduction);
-
         } // End of for.
       } // End of while.
       // Close the connection
@@ -318,7 +316,7 @@ public class Controller {
     } // End of catch.
   } // End of add_productlog method.
 
-  public void populate_ProductionTextView(){
+  public void populate_ProductionTextView() {
     try {
       Class.forName(jcbdDriver);
       conn = DriverManager.getConnection(dbUrl, user, pass);
@@ -336,17 +334,19 @@ public class Controller {
         String productManu = rs.getString("MANUFACTURER");
         String productType = rs.getString("TYPE");
 
-      // textAreaProductLog.appendText("Product Name: "+productName+"Serial: "+DatabaseAccessor.getProductionRecord().getSerialNum()+
+        // textAreaProductLog.appendText("Product Name: "+productName+"Serial:
+        // "+DatabaseAccessor.getProductionRecord().getSerialNum()+
         // "Date Produced: "+DatabaseAccessor.getProductionRecord().getProdDate());
 
         // Create another object that will display the RecordProduction.
 
-        //  ProductionRecord displayProduction = new ProductionRecord(DatabaseAccessor.getProductionRecord());
+        //  ProductionRecord displayProduction = new
+        // ProductionRecord(DatabaseAccessor.getProductionRecord());
 
-          // The textarea will display the product name, ProductID, serial number and dateProduced.
-          //textAreaProductLog.appendText(displayProduction.toString());
-        //displayProduction.toStringWithName();
-        }
+        // The textarea will display the product name, ProductID, serial number and dateProduced.
+        // textAreaProductLog.appendText(displayProduction.toString());
+        // displayProduction.toStringWithName();
+      }
 
       // Close the connection
       stmt.close();
@@ -446,7 +446,7 @@ public class Controller {
   }
 
   @FXML
-  public void goEmployee(MouseEvent event){
+  public void goEmployee(MouseEvent event) {
     Main.createEmployeeScene(event, "Employee.fxml");
   }
 }
