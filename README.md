@@ -5,6 +5,7 @@ The database is accessed and can be manipulated to either display or to enter in
 Information is entered into the database using a gui application.
 The buttons, text fields, list views, etc have all been given functions to manipulate or display the database.
   
+  <iframe src="https://giphy.com/embed/S8NArVhaMVUH0HtbTt" width="480" height="320" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/S8NArVhaMVUH0HtbTt">via GIPHY</a></p>
 
 ## The First Sprint:
 1. **Week 1:** Create a JavaFX project, and share it to a private repository on github with a README.
